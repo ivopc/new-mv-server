@@ -1,0 +1,21 @@
+{
+  "name": "new-mv-server",
+  "version": "1.0.0",
+  "description": "New Monster Valle Server, for web-based game.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ivopc <ivoopc@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mysql": "^2.18.1",
+    "socket.io": "^3.0.4"
+  }
+}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	Bem-vindo <%= username %>.
+	<script type="text/javascript">
+		const $Auth = {
+			uid: <%= uid %>,
+			token: {
+				auth: "<%= authToken %>",
+				csrf: "<%= csrfToken %>"
+			}
+		};
+	</script>
+</body>
+</html>

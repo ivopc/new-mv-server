@@ -1,0 +1,13 @@
+{
+    "mysql": {
+        "connectionLimit": 100,
+        "host": "localhost",
+        "user": "root",
+        "password": "",
+        "database": "newvalle"
+    },
+    "rethinkdb": {
+        "host": "localhost",
+        "port": 28015
+    }
+}

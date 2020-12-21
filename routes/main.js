@@ -5,27 +5,26 @@ const mainRouter = require("../controller/main");
 
 router
 	.all("/", mainRouter)
-	.get("/map", mainRouter)
-	.get("/inventory", mainRouter)
 	.get("/profile", mainRouter)
-	.get("/create", mainRouter)
-	.get("/statistics", mainRouter)
-	.get("/hunt", mainRouter)
-	.get("/monster/:id", mainRouter)
-	.get("/jobs", mainRouter)
-	.get("/city", mainRouter)
-	.get("/messages", mainRouter)
+	.get("/profile/:nickname", mainRouter)
 	.get("/premium", mainRouter)
-	.get("/reports", mainRouter);
+	.get("/config", mainRouter)
+
+	.get("/team", mainRouter)
+	.get("/hunt", mainRouter)
+	.get("/city", mainRouter)
+	.get("/bag", mainRouter)
+	.get("/recovery", mainRouter)
+	.get("/market", mainRouter)
+	.get("/jobs", mainRouter)
+	.get("/marketplace", mainRouter)
+	.get("/bank", mainRouter)
+	.get("/storagemarket", mainRouter)
+	.get("/premium", mainRouter)
+
+	.get("/captcha", mainRouter)
+	.get("/initialmonster", mainRouter)
+	.get("/learn", mainRouter)
+	.get("/evolve", mainRouter)
 
 module.exports = router;
-
-/*
---/manage
---/diplomacy
---/options
---/forum
---/buy
---/vouchers
---/advantages
-*/

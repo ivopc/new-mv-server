@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS `in_game_data` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- monstros que estão na party do player
-DROP TABLE IF EXISTS `monsters_in_pocket`;
-CREATE TABLE IF NOT EXISTS `monsters_in_pocket` (
+DROP TABLE IF EXISTS `monsters_in_party`;
+CREATE TABLE IF NOT EXISTS `monsters_in_party` (
     `uid` bigint(10) NOT NULL,
     `monster0` bigint(10) NOT NULL,
     `monster1` bigint(10) NOT NULL,
@@ -48,8 +48,8 @@ CREATE TABLE IF NOT EXISTS `monsters_in_pocket` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- monstros que estão ba party do tamer (cpu)
-DROP TABLE IF EXISTS `tamer_bot_monsters_in_pocket`;
-CREATE TABLE IF NOT EXISTS `tamer_bot_monsters_in_pocket` (
+DROP TABLE IF EXISTS `tamer_bot_monsters_in_party`;
+CREATE TABLE IF NOT EXISTS `tamer_bot_monsters_in_party` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     `uid` bigint(10) NOT NULL,
     `tamer_id` smallint(10) NOT NULL,

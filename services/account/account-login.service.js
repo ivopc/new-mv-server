@@ -1,8 +1,8 @@
 const { comparePasswordHash } = require("../../utils");
 const { userExists } = require("../../models/users.db");
 
-const checkIfUserExists = async username => {
-	return await userExists(username);
+const checkIfUserExists = async (username, getUserData) => {
+	return await userExists(username, getUserData);
 };
 
 const checkPassword = async (inputPassword, databasePassword) => {

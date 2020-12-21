@@ -8,17 +8,18 @@ exports.login = async (req, res) => {
     const { username, password } = req.body;
     const login = new Login(req, res);
     // validate inputs
-    if (!login.isInputValid(username, password)) {
+    if (!login.isInputValid(username || "", password || "")) { 
         res.status(401).json({error: LOGIN.ERROR.LENGTH});
         return;
     };
-    // checking if user exists
     let user;
+    // checking if user exists
     try {
-        user = await checkIfUserExists(username);
+        const getUserData = true;
+        [ user ] = await checkIfUserExists(username, getUserData);
     } catch (err) {
         res.status(500).json({error: LOGIN.ERROR.INTERNAL_ERROR});
-        return;
+        return; 
     };
     // if user do not exists
     if (!user) {
@@ -45,13 +46,14 @@ exports.register = async (req, res) => {
     const { username, password, email } = req.body;
     const register = new Register(req, res);
     // validate inputs
-    if (!register.isInputValid(username, password, email)) {
-        res.status(401).json(REGISTER.ERROR.INVALID_INPUT);
+    if (!register.isInputValid(username || "", password || "", email || "")) {
+        res.status(401).json({error: REGISTER.ERROR.INVALID_INPUT});
         return;
     };
-    // check if user exists or email is in use
+    // check if user exists and email is in use
+    const getUserData = false;
     const [ userExists, emailInUse ] = await Promise.all([
-        checkIfUserExists(username),
+        checkIfUserExists(username, getUserData),
         checkIfEmailInUse(email)
     ]);
     if (userExists) {
@@ -63,6 +65,12 @@ exports.register = async (req, res) => {
         return;
     };
     const newUser = await createNewUser(username, password, email, 0);
+    register.createSession({
+        id: newUser.insertId,
+        username,
+        rank: 0,
+        lang: 0
+    });
     res.json({success: true});
 };
 

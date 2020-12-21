@@ -6,7 +6,7 @@ class Login {
         this.res = res;
     }
 
-    isInputValid (username, password) {
+    isInputValid (username = "", password = "") {
         const isValidUsername = username.length >= 3 && username.length <= 20;
         const isValidPassword = password.length >= 6;
 
@@ -27,7 +27,6 @@ class Login {
         this.req.session.csrfToken = token.csrf;
         this.req.session.rank = userData.rank;
         this.req.session.lang = userData.lang;
-
     }
 };
 

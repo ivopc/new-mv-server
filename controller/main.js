@@ -1,13 +1,25 @@
-const QueryExecutor = require("../database/MySQLQueryExecutor");
+const { checkBlockPages } = require("../services/main/check-block-pages.service");
+
 
 module.exports = async (req, res) => {
-
-	const users = await QueryExecutor.query("SELECT * FROM `users`");
-	console.log(users);
 	// if user is not logged in
 	if (!req.session["isConnected"]) {
 		res.render("login");
 		return;
+	};
+	let blocks = {
+		captcha: false,
+		initial: false
+	};
+	switch (await checkBlockPages()) {
+		case 1: {
+			blocks.captcha = true;
+			break;
+		};
+		case 2: {
+			blocks.initial = true;
+			break;
+		};
 	};
 
 	// render default dashboard
@@ -17,6 +29,7 @@ module.exports = async (req, res) => {
         username: req.session["username"],
         authToken: req.session["authToken"],
         csrfToken: req.session["csrfToken"],
-        lang: req.session["lang"]
+        lang: req.session["lang"],
+        blocks
 	});
 };

@@ -8,12 +8,14 @@ const app = express();
 
 app.set("port", process.env.PORT || 8081);
 app.set("view engine", "ejs");
-app.set("views", "./views");
+app.set("views", "./views"); 
 
 // routers
 const routes = {
     main: require("./routes/main"),
-    account: require("./routes/account")
+    account: require("./routes/account"),
+    dashboard: require("./routes/dashboard"),
+    gamecore: require("./routes/gamecore")
 };
 
 app
@@ -30,7 +32,9 @@ app
 
 app
     .use("/", routes.main)
-    .use("/account", routes.account);
+    .use("/account", routes.account)
+    .use("/dashboard", routes.dashboard)
+    .use("/gamecore", routes.gamecore);
 
 app.listen(app.get("port"), () => 
     console.log(`Monster Valle is running on port ${app.get("port")}`)

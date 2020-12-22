@@ -3,10 +3,14 @@ const router = express.Router();
 
 const mainRouter = require("../controller/main");
 
+const isConnected = require("../controller/utils/is-connected-render-route");
+
 router
 	.all("/", mainRouter)
-	.get("/profile", mainRouter)
+
+	//.use(isConnected)
 	.get("/profile/:nickname", mainRouter)
+	.get("/profile", mainRouter)
 	.get("/premium", mainRouter)
 	.get("/config", mainRouter)
 
@@ -20,7 +24,6 @@ router
 	.get("/marketplace", mainRouter)
 	.get("/bank", mainRouter)
 	.get("/storagemarket", mainRouter)
-	.get("/premium", mainRouter)
 
 	.get("/captcha", mainRouter)
 	.get("/initialmonster", mainRouter)

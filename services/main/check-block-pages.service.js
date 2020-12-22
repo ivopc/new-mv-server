@@ -1,18 +1,13 @@
-const checkBlockPages = async () => {
-    // const [ captcha, initialMonster ] = await Promise.all([
-    //     checkCaptcha(),
-    //     checkInitialMonster()
-    // ]);
+const { getFlag } = require("../models/flags.db");
+const BLOCKPAGES = require("../constants/BlockPages");
 
-    const [ captcha, initialMonster ] = [1, 2];
+const checkBlockPages = async uid => {
+    const [ hasInitial, captcha ] = await Promise.all([
+        getFlag(uid, "ka", 1)
+    ]);
 
-    if (captcha)
-        return 1;
-
-    if (initialMonster)
-        return 2;
-
-    return false;
+    if (!hasInitial)
+        return BLOCKPAGES.INITIAL_MONSTER;
 };
 
 module.exports = { checkBlockPages };

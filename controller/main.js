@@ -1,25 +1,8 @@
-const { checkBlockPages } = require("../services/main/check-block-pages.service");
-
-
 module.exports = async (req, res) => {
 	// if user is not logged in
 	if (!req.session["isConnected"]) {
 		res.render("login");
 		return;
-	};
-	let blocks = {
-		captcha: false,
-		initial: false
-	};
-	switch (await checkBlockPages()) {
-		case 1: {
-			blocks.captcha = true;
-			break;
-		};
-		case 2: {
-			blocks.initial = true;
-			break;
-		};
 	};
 
 	// render default dashboard

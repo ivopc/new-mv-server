@@ -376,7 +376,7 @@ CREATE TABLE IF NOT EXISTS `security_tokens` (
     `uid` bigint(10) NOT NULL,
     `active` tinyint(1) NOT NULL,
     `token` varchar(150) NOT NULL,
-    `lastActivity` varchar(13) NOT NULL,
+    `last_activity` varchar(13) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

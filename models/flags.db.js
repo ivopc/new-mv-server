@@ -23,7 +23,7 @@ const insertUpdateFlag = async (uid, type, flagId, value) => {
 };
 
 const getFlag = async (uid, type, flagId) => {
-	const [ flag ] = await QueryExecutor.query("SELECT * FROM `flags` WHERE `uid` = ? AND `type` = ? AND flagId = ?", [uid, type, flagId]);
+	const [ flag ] = await QueryExecutor.query("SELECT * FROM `flags` WHERE `uid` = ? AND `type` = ? AND `flag_id` = ?", [uid, type, flagId]);
 	return flag;
 };
 

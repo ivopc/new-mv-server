@@ -1,31 +1,38 @@
 const express = require("express");
 const controller = {
     isConnected: require("../controller/utils/is-connected"),
-    checkBlockPages: require("../controller/gamecore/check-block-pages")
-
+    checkBlockPages: require("../controller/gamecore/check-block-pages"),
+    chooseInitialMonster: require("../controller/gamecore/choose-initial-monster"),
+    checkInitialMonster: require("../controller/gamecore/check-initial-monster")
 };
 const router = express.Router();
 
 router
-    //.use(controller.isConnected)
+    .use(controller.isConnected)
     .use(controller.checkBlockPages)
 
-    .post("/home", (req, res) => {})
-    .post("/team", (req, res) => {})
-    .post("/hunt", (req, res) => {})
-    .post("/city", (req, res) => {})
-    .post("/bag", (req, res) => {})
-    .post("/recovery", (req, res) => {})
-    .post("/market", (req, res) => {})
-    .post("/jobs", (req, res) => {})
-    .post("/marketplace", (req, res) => {})
-    .post("/bank", (req, res) => {})
-    .post("/storagemarket", (req, res) => {})
-    .post("/captcha", (req, res) => {
+    .get("/home", (req, res) => {
+        res.json({
+            username: req.session["username"],
+            level: 500
+        })
+    })
+    .get("/team", (req, res) => {})
+    .get("/hunt", (req, res) => {})
+    .get("/city", (req, res) => {})
+    .get("/bag", (req, res) => {})
+    .get("/recovery", (req, res) => {})
+    .get("/market", (req, res) => {})
+    .get("/jobs", (req, res) => {})
+    .get("/marketplace", (req, res) => {})
+    .get("/bank", (req, res) => {})
+    .get("/storagemarket", (req, res) => {})
+    .get("/captcha", (req, res) => {
         res.json({captcha: true, rand: Date.now()});
     })
-    .post("/initialmonster", (req, res) => {})
-    .post("/learn", (req, res) => {})
-    .post("/evolve", (req, res) => {});
+    .post("/initialmonster", controller.chooseInitialMonster)
+    .get("/initialmonster", controller.checkInitialMonster)
+    .get("/learn", (req, res) => {})
+    .get("/evolve", (req, res) => {});
 
 module.exports = router;

@@ -1,0 +1,166 @@
+{
+    "1": {
+        "monsterpedia_id": 1,
+        "specie": "Fogara",
+        "types": ["fire"],
+        "rarity": "common",
+        "baseStats": {
+            "hp": 200,
+            "atk": 250,
+            "def": 211,
+            "spe": 50
+        },
+        "abilities": {
+            "0": 1,
+            "1": 2,
+            "2": 3
+        },
+        "expbase": 64,
+        "evos": {
+            "default": 2
+        },
+        "evoLevel": 16,
+        "tame_rate": 60
+    },
+    "4": {
+        "monsterpedia_id": 4,
+        "specie": "Maritin",
+        "types": ["water"],
+        "rarity": "common",
+        "baseStats": {
+            "hp": 250,
+            "atk": 250,
+            "def": 250,
+            "spe": 50
+        },
+        "abilities": {
+            "0": 1,
+            "1": 2,
+            "2": 3
+        },
+        "expbase": 80,
+        "evos": {
+            "default": 2
+        },
+        "evoLevel": 16,
+        "tame_rate": 60
+    },
+    "7": {
+        "monsterpedia_id": 7,
+        "specie": "Graenn",
+        "types": ["plant"],
+        "rarity": "common",
+        "baseStats": {
+            "hp": 250,
+            "atk": 250,
+            "def": 250,
+            "spe": 50
+        },
+        "abilities": {
+            "0": 1,
+            "1": 2,
+            "2": 3
+        },
+        "expbase": 80,
+        "evos": {
+            "default": 2
+        },
+        "evoLevel": 16,
+        "tame_rate": 60
+    },
+    "10": {
+        "monsterpedia_id": 10,
+        "specie": "Dinnox",
+        "types": ["null"],
+        "rarity": "common",
+        "baseStats": {
+            "hp": 80,
+            "atk": 85,
+            "def": 95,
+            "spe": 24
+        },
+        "expbase": 64,
+        "evoLevel": 50,
+        "evos": {
+            "default": 12
+        },
+        "tame_rate": 60,
+        "rating": 0
+    },
+    "12": {
+        "monsterpedia_id": 12,
+        "specie": "Atataiob",
+        "types": ["fire"],
+        "rarity": "common",
+        "baseStats": {
+            "hp": 90,
+            "atk": 100,
+            "def": 80,
+            "spe": 20
+        },
+        "expbase": 80,
+        "evoLevel": 18,
+        "evos": {
+            "default": 10
+        },
+        "tame_rate": 60,
+        "rating": 0
+    },
+    "15": {
+        "monsterpedia_id": 15,
+        "specie": "Shifarie",
+        "types": ["light"],
+        "rarity": "common",
+        "baseStats": {
+            "hp": 200,
+            "atk": 120,
+            "def": 90,
+            "spe": 90
+        },
+        "expbase": 95,
+        "evoLevel": 18,
+        "evos": {
+            "default": 10
+        },
+        "tame_rate": 60,
+        "rating": 0
+    },
+    "18": {
+        "monsterpedia_id": 18,
+        "specie": "Frutara",
+        "types": ["plant"],
+        "rarity": "common",
+        "baseStats": {
+            "hp": 160,
+            "atk": 90,
+            "def": 100,
+            "spe": 120
+        },
+        "expbase": 95,
+        "evoLevel": 18,
+        "evos": {
+            "default": 10
+        },
+        "tame_rate": 60,
+        "rating": 0
+    },
+    "21": {
+        "monsterpedia_id": 21,
+        "specie": "Horie",
+        "types": ["null", "fire"],
+        "rarity": "common",
+        "baseStats": {
+            "hp": 170,
+            "atk": 120,
+            "def": 70,
+            "spe": 150
+        },
+        "expbase": 100,
+        "evoLevel": 18,
+        "evos": {
+            "default": 10
+        },
+        "tame_rate": 60,
+        "rating": 0
+    }
+}

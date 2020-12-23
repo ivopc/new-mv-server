@@ -1,0 +1,20 @@
+{
+    "1": {
+        "requisits": [
+            {"type": "defeat", "monsterpedia_id": 10, "amount": 5}
+        ],
+        "rewards": [
+            {"type": "silver", "amount": 1500},
+            {"type": "item", "amount": 5, "item_id": 1}
+        ]
+    },
+    "2": {
+        "requisits": [
+            {"type": "tame", "monsterpedia_id": 10, "amount": 1}
+        ],
+        "rewards": [
+            {"type": "silver", "amount": 2500},
+            {"type": "item", "amount": 2, "item_id": 1}
+        ]
+    }
+}

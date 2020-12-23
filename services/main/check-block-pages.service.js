@@ -1,5 +1,5 @@
-const { getFlag } = require("../models/flags.db");
-const BLOCKPAGES = require("../constants/BlockPages");
+const { getFlag } = require("../../models/flags.db");
+const BLOCKPAGES = require("../../constants/BlockPages");
 
 const checkBlockPages = async uid => {
     const [ hasInitial, captcha ] = await Promise.all([

@@ -12,7 +12,6 @@ module.exports = async (req, res) => {
         username: req.session["username"],
         authToken: req.session["authToken"],
         csrfToken: req.session["csrfToken"],
-        lang: req.session["lang"],
-        blocks
+        lang: req.session["lang"]
 	});
 };

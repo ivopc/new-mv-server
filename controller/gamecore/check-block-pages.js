@@ -1,7 +1,7 @@
 const dontNeedToAuth = ["captcha", "initialmonster"];
 
-const { checkBlockPages } = require("../services/main/check-block-pages.service");
-const BLOCKPAGES = require("../constants/BlockPages");
+const { checkBlockPages } = require("../../services/main/check-block-pages.service");
+const BLOCKPAGES = require("../../constants/BlockPages");
 
 module.exports = async (req, res, next) => {
     if (dontNeedToAuth.includes(req.path.split("/")[1])) {

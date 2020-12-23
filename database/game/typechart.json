@@ -1,0 +1,110 @@
+{
+    "null": {
+        "name": {
+            "br": "Nulo",
+            "en": "Null"
+        },
+        "immunes": {},
+        "weaknesses": {},
+        "strengths": {}
+    },
+    "mystic": {
+        "name": {
+            "br": "Místico",
+            "en": "Mystic"
+        },
+        "immunes": {},
+        "weaknesses": {},
+        "strengths": {"mystic": true}
+    },
+    "fire": {
+        "name": {
+            "br": "Fogo",
+            "en": "Fire"
+        },
+        "immunes": {},
+        "weaknesses": {"water": true, "ground": true, "fire": true, "mystic": true},
+        "strengths": {"grass": true, "metal": true}
+    },
+    "water": {
+        "name": {
+            "br": "Água",
+            "en": "Water"
+        },
+        "immunes": {},
+        "weaknesses": {"plant": true, "electric": true, "sound": true, "water": true, "mystic": true},
+        "strengths": {"fire": true, "ground": true}
+    },
+    "plant": {
+        "name": {
+            "br": "Planta",
+            "en": "Plant"
+        },
+        "immunes": {},
+        "weaknesses": {"plant": true, "fire": true, "wind": true, "metal": true, "mystic": true},
+        "strengths": {"water": true, "ground": true}
+    },
+    "wind": {
+        "name": {
+            "br": "Vento",
+            "en": "Wind"
+        },
+        "immunes": {},
+        "weaknesses": {"electric": true, "metal": true, "mystic": true},
+        "strengths": {"plant": true, "ground": true}
+    },
+    "ground": {
+        "name": {
+            "br": "Terrestre",
+            "en": "Ground"
+        },
+        "immunes": {"electric": true},
+        "weaknesses": {"wind": true, "plant": true, "metal": true, "mystic": true},
+        "strengths": {"fire": true, "electric": true}
+    },
+    "electric": {
+        "name": {
+            "br": "Elétrico",
+            "en": "Electric"
+        },
+        "immunes": {"electric": true},
+        "weaknesses": {"ground": true, "metal": true, "mystic": true},
+        "strengths": {"wind": true, "water": true}
+    },
+    "light": {
+        "name": {
+            "br": "Luz",
+            "en": "Light"
+        },
+        "immunes": {"light": true},
+        "weaknesses": {},
+        "strengths": {"shadow": true}
+    },
+    "shadow": {
+        "name": {
+            "br": "Sombra",
+            "en": "Shadow"
+        },
+        "immunes": {"shadow": true},
+        "weaknesses": {},
+        "strengths": {"light": true}
+    },
+    "sound": {
+        "name": {
+            "br": "Som",
+            "en": "Sound"
+        },
+        "immunes": {"metal": true},
+        "weaknesses": {},
+        "strengths": {"water": true, "electric": true}
+    },
+    "metal": {
+        "name": {
+            "br": "Metal",
+            "en": "Metal"
+        },
+        "immunes": {"sound": true},
+        "weaknesses": {"fire": true},
+        "strengths": {}
+    }
+}

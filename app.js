@@ -2,7 +2,12 @@ const
     express = require("express"),
     cookieParser = require("cookie-parser"),
     bodyParser = require("body-parser"),
-    expressSession = require("express-session");
+    expressSession = require("express-session"),
+    cors = require("cors");
+
+const forceSession = require("./controller/utils/force-session");
+
+const TEST = true;
 
 const app = express();
 
@@ -17,7 +22,6 @@ const routes = {
     dashboard: require("./routes/dashboard"),
     gamecore: require("./routes/gamecore")
 };
-
 app
     .use(express.static("./public"))
     .use(cookieParser())
@@ -29,6 +33,13 @@ app
         resave: false,
         saveUninitialized: false
     }));
+
+
+if (TEST) {
+    app
+        .use(cors())
+        .use(forceSession);
+};
 
 app
     .use("/", routes.main)

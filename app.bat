@@ -1,3 +1,3 @@
 @echo off
-node app
+nodemon app
 pause

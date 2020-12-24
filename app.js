@@ -22,6 +22,7 @@ const routes = {
     dashboard: require("./routes/dashboard"),
     gamecore: require("./routes/gamecore")
 };
+
 app
     .use(express.static("./public"))
     .use(cookieParser())

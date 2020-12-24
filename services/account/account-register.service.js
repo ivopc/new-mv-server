@@ -2,10 +2,10 @@ const { cryptPassword } = require("../../utils");
 const { 
     createUser, 
     emailInUse, 
-    insertCurrentDoing, 
-    insertGameData, 
-    insertMonsterParty 
+    insertCurrentDoing
 } = require("../../models/users.db");
+const { insertGameData } = require("../../models/gamedata.db");
+const { insertMonsterParty } = require("../../models/party.db");
 
 const checkIfEmailInUse = async email => {
     return await emailInUse(email);

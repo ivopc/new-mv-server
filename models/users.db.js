@@ -51,32 +51,9 @@ const insertCurrentDoing = async uid => {
     });
 };
 
-const insertGameData = async uid => {
-	return await QueryExecutor.query("INSERT INTO `in_game_data` SET ?", {
-	    uid,
-	    silver: 100,
-	    gold: 0,
-	    points: 0,
-	    level: 0,
-	    rank: 0,
-	    exp: 0
-	});
-};
 
-const insertMonsterParty = async uid => {
-   	return await QueryExecutor.query("INSERT INTO `monsters_in_party` SET ?", {
-        uid,
-        monster0: 0,
-        monster1: 0,
-        monster2: 0,
-        monster3: 0,
-        monster4: 0,
-        monster5: 0
-    });
-};
 
 module.exports = { 
 	createUser, fetchUserById, userExists, 
-	emailInUse, setUserBannedById, insertCurrentDoing, 
-	insertGameData, insertMonsterParty
+	emailInUse, setUserBannedById, insertCurrentDoing
 };

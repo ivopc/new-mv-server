@@ -1,11 +1,7 @@
 const QueryExecutor = require("../database/MySQLQueryExecutor");
 
 const insertUpdateFlag = async (uid, type, flagId, value) => {
-	const [ flag ] = await QueryExecutor.query(
-		"SELECT `id` FROM `flags` WHERE `uid` = ? AND `type` = ? AND `flag_id` = ?",
-		[uid, type, flagId]
-	);
-
+	const flag = await getFlag(uid, type, flagId)
 	if (flag) {
 		await QueryExecutor.query(
 			"UPDATE `flags` SET `value` = ? WHERE `id` = ?",

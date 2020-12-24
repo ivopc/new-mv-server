@@ -73,4 +73,20 @@ const insertMonster = async (uid, monsterData) => {
     return await QueryExecutor.query("INSERT INTO `monsters` SET ?", monsterData);
 };
 
-module.exports = { insertMonster };
+const getMonster = async id => {
+    const [ monster ] = await QueryExecutor.query(
+        "SELECT * FROM `monsters` WHERE `id` = ?",
+        [id]
+    );
+    return monster;
+};
+
+const getAliveWildMonster = async uid => {
+    const [ wild ] = await QueryExecutor.query(
+        "SELECT * FROM `monsters` WHERE `type` = '1' AND `uid` = ? AND `enabled` = '1'",
+        [uid]
+    );
+    return wild;
+};
+
+module.exports = { insertMonster, getMonster, getAliveWildMonster };

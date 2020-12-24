@@ -1,5 +1,12 @@
 const bcrypt = require("bcryptjs");
 
+const promiseWaterfall = (callbacks, initialArgs) => {
+    return callbacks.reduce((accumulator, callback) => 
+        accumulator.then(callback), 
+        Promise.resolve(initialArgs)
+    );
+};
+
 const randomString = (len = 10) => {
     const str = "1234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
     let rand = "";
@@ -43,7 +50,23 @@ const validateEmail = email => {
 
 const isObjectEmpty = obj => Object.keys(obj).length === 0;
 
+const filterMonsterData = monsterData => { 
+    const {
+    id, uid, shiny, is_initial, in_pocket, monsterpedia_id, level, 
+    experience, gender, hold_item, catch_item, move_0, move_1, move_2, 
+    move_3, current_HP, status_problem, stats_HP, current_MP, stats_MP, 
+    stats_attack, stats_defense, stats_speed, egg_is, egg_date } = monsterData;
+    return {
+    id, uid, shiny, is_initial, in_pocket, monsterpedia_id, level, 
+    experience, gender, hold_item, catch_item, move_0, move_1, move_2, 
+    move_3, current_HP, status_problem, stats_HP, current_MP, stats_MP, 
+    stats_attack, stats_defense, stats_speed, egg_is, egg_date };
+};
+
+const filterMonsterList = monsterList => monsterList.map(filterMonsterData);
+
 module.exports = { 
-    randomString, comparePasswordHash, cryptPassword, 
-    booleanToInt, validateEmail, isObjectEmpty 
+    promiseWaterfall, randomString, comparePasswordHash, 
+    cryptPassword, booleanToInt, validateEmail, 
+    isObjectEmpty, filterMonsterData, filterMonsterList
 };

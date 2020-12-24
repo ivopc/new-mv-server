@@ -1,0 +1,17 @@
+const BATTLE_TYPES = {
+	WILD: 1,
+	TAMER: 2,
+	PVP: 3
+};
+
+const ERRORS = {
+	PLAYER_ALREADY_DOING_ACTION: 1
+};
+
+const STATUS_PROBLEM = {
+	PARALYZED: 1,
+	POISONED: 2,
+	SLEEPING: 5
+};
+
+module.exports = { BATTLE_TYPES, ERRORS, STATUS_PROBLEM };

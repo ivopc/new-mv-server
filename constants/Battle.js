@@ -14,4 +14,16 @@ const STATUS_PROBLEM = {
 	SLEEPING: 5
 };
 
-module.exports = { BATTLE_TYPES, ERRORS, STATUS_PROBLEM };
+const FN_NAMES = {
+    MOVE_DAMAGE: 0,
+    BUFF_DEBUFF: 1,
+    RUN: 2,
+    CHANGE_MONSTER: 3,
+    MAGIC_SEAL: 4,
+    HEALTH_POTION: 5,
+    STATUS_PROBLEM: 6,
+    AWAKE: 7,
+    RAW_DAMAGE: 99
+};
+
+module.exports = { BATTLE_TYPES, ERRORS, STATUS_PROBLEM, FN_NAMES };

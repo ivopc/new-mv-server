@@ -24,12 +24,11 @@ const main = async (uid, input) => {
     const turnData = action.handleAction(input, battleData);
     await execTurnActions(battleData.battleData, turnData);
     const newBattleData = await getInitialBattleData(uid, input);
-    const nextTurnData = await action.nextTurn(newBattleData);
+    const nextTurnData = await action.nextTurn(newBattleData, turnData, uid);
     if (nextTurn.continue) {
         return turnData;
-    };
-    if (nextTurn.dontContinue) {
-        
+    } else {
+
     };
 };
 
@@ -43,10 +42,21 @@ const execTurnActions = async ({ id }, { pre, regular, post }) => {
     script.regular.codeParser(regular);
     script.post.codeParser(post);
     await promiseWaterfall([
-        () => await script.pre.exec(),
-        () => await script.regular.exec(),
-        () => await script.post.exec()
+        async () => await script.pre.exec(),
+        async () => await script.regular.exec(),
+        async () => await script.post.exec()
     ]);
 };
+
+// ;(async () => {
+//     const script = new Script(1);
+//     script.codeParser([
+//         {name: "Ivo"},
+//         {name: "Red"},
+//         {name: "Tomaticru"}
+//     ]);
+//     await script.exec();
+//     console.log("End");
+// })();
 
 module.exports = main;

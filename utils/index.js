@@ -1,11 +1,11 @@
 const bcrypt = require("bcryptjs");
 
-const promiseWaterfall = (callbacks, initialArgs) => {
-    return callbacks.reduce((accumulator, callback) => 
+const promiseWaterfall = (callbacks, initialArgs) =>
+    callbacks.reduce((accumulator, callback) => 
         accumulator.then(callback), 
         Promise.resolve(initialArgs)
     );
-};
+
 
 const randomString = (len = 10) => {
     const str = "1234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";

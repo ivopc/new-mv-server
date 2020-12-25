@@ -41,19 +41,24 @@ const getBattle = async uid => {
     return battle;
 };
 
+const deleteBattle = async uid => {
+    return await QueryExecutor.query("DELETE FROM `battle` WHERE `uid` = ?", [uid]);
+};
+
 const getAllBattleInfo = async (battleType, uid) => {
     switch (battleType) {
         case BATTLE_TYPES.WILD: {
-            const [ playerMonsters, wildMonster, battleData ] = await Promise.all([
+            const [ _playerMonsters, wildMonster, battleData ] = await Promise.all([
                 getMonstersInParty(uid),
                 getAliveWildMonster(uid),
                 getBattle(uid)
             ]);
+            const playerMonsters = new PartySchema(_playerMonsters);
             const buffsDebuffs = await getBattleBuffsDebuffs(battleData.id);
-            return { battleType, new PartySchema(playerMonsters), wildMonster, battleData, buffsDebuffs };
+            return { battleType, playerMonsters, wildMonster, battleData, buffsDebuffs };
             break;
         };
     };
 };
 
-module.exports = { insertBattle, getBattle, getAllBattleInfo };
+module.exports = { insertBattle, getBattle, deleteBattle, getAllBattleInfo };

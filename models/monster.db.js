@@ -81,6 +81,13 @@ const getMonster = async id => {
     return monster;
 };
 
+const disableMonster = async id => {
+    return await QueryExecutor.query(
+        "UPDATE `monsters` SET `enabled` = '0' WHERE `enabled` = '1' AND `id` = ?",
+        [id]
+    );
+};
+
 const getAliveWildMonster = async uid => {
     const [ wild ] = await QueryExecutor.query(
         "SELECT * FROM `monsters` WHERE `type` = '1' AND `uid` = ? AND `enabled` = '1'",
@@ -89,4 +96,4 @@ const getAliveWildMonster = async uid => {
     return wild;
 };
 
-module.exports = { insertMonster, getMonster, getAliveWildMonster };
+module.exports = { insertMonster, getMonster, disableMonster, getAliveWildMonster };

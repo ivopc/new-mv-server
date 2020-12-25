@@ -20,4 +20,10 @@ const getCurrentDoing = async uid => {
 	return currentDoing;
 };
 
-module.exports = { insertCurrentDoing, getCurrentDoing };
+const setNotBattling = async uid => 
+    await QueryExecutor.query(
+        "UPDATE `current_doing` SET `doing_battle_action` = '0', `battle_type` = '0' WHERE `uid` = ?",
+        [uid]
+    );
+
+module.exports = { insertCurrentDoing, getCurrentDoing, setNotBattling };

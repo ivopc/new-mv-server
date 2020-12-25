@@ -1,32 +1,36 @@
+const { FN_NAMES } = require("../../../constants/Battle");
+
+
 const scripts = [];
 
 // Apply damage
-scripts[0] = async function (params) {
-	console.log(this.battleId, params);
-};
+scripts[FN_NAMES.MOVE_DAMAGE] = async function (params) {};
 
 // Apply buff/debuff
-scripts[1] = async function (params) {};
+scripts[FN_NAMES.BUFF_DEBUFF] = async function (params) {
+    console.log(params);
+    return await new Promise(resolve => setTimeout(resolve, 2000));
+};
 
 // Run (only vs wild)
-scripts[2] = async function (params) {};
+scripts[FN_NAMES.RUN] = async function (params) {};
 
 // Change monster
-scripts[3] = async function (params) {};
+scripts[FN_NAMES.CHANGE_MONSTER] = async function (params) {};
 
 // Use magic seal (tame wild monster)
-scripts[4] = async function (params) {};
+scripts[FN_NAMES.MAGIC_SEAL] = async function (params) {};
 
 // Use heal potion
-scripts[5] = async function (params) {};
+scripts[FN_NAMES.HEALTH_POTION] = async function (params) {};
 
 // Status problem
-scripts[6] = async function (params) {};
+scripts[FN_NAMES.STATUS_PROBLEM] = async function (params) {};
 
 // Status problem heal
-scripts[7] = async function (params) {};
+scripts[FN_NAMES.AWAKE] = async function (params) {};
 
 // Raw Damage
-scripts[99] = async function (params) {};
+scripts[FN_NAMES.RAW_DAMAGE] = async function (params) {};
 
 module.exports = scripts;

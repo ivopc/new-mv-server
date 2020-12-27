@@ -4,7 +4,7 @@ const { getCurrentDoing } = require("../../../models/current-doing.db");
 const { getAllBattleInfo } = require("../../../models/battle.db");
 const { handlePvPInput } = require("./vs-player-action.service.js");
 
-const getInitialBattleData = async (uid, input) => {
+const bootBattleAction = async (uid, input) => {
     const currentDoing = await getCurrentDoing(uid);
     // if player is doing a battle action
     if (currentDoing.doing_battle_action === 1)
@@ -16,4 +16,12 @@ const getInitialBattleData = async (uid, input) => {
     return await getAllBattleInfo(currentDoing.battle_type, uid);
 };
 
-module.exports = { getInitialBattleData };
+const onEnterIdle = async uid => {
+    const currentDoing = await getCurrentDoing(uid);
+    if (currentDoing.battle_type === 0) {
+        return { battling: false };
+    };
+    return await getAllBattleInfo(currentDoing.battle_type, uid);
+};
+
+module.exports = { bootBattleAction, onEnterIdle };

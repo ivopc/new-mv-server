@@ -4,6 +4,13 @@ const BATTLE_TYPES = {
 	PVP: 3
 };
 
+const ACTIONS = {
+    MOVE: "move",
+    ITEM: "item",
+    SWITCH_MONSTER: "switchmonster",
+    RUN: "run"
+};
+
 const ERRORS = {
 	PLAYER_ALREADY_DOING_ACTION: 1
 };
@@ -26,4 +33,4 @@ const FN_NAMES = {
     RAW_DAMAGE: 99
 };
 
-module.exports = { BATTLE_TYPES, ERRORS, STATUS_PROBLEM, FN_NAMES };
+module.exports = { BATTLE_TYPES, ACTIONS, ERRORS, STATUS_PROBLEM, FN_NAMES };

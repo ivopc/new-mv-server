@@ -1,0 +1,12 @@
+{
+    "0": {
+        "florest": {
+            "morning": {
+                "common": [1],
+                "uncommon": [4],
+                "rare": [7],
+                "rare2": [21]
+            }
+        }
+    }
+}

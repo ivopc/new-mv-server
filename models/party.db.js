@@ -54,9 +54,7 @@ const getMonstersInParty = async uid => {
     // get the monster data and returns an array with all monsters in party data
     const monsterList = await Promise.all(fns.map(fn => fn()));
     // removing the null elements
-    return new monsterList.filter(el => !!el);
+    return monsterList.filter(el => !!el);
 };
 
-module.exports = {
-    insertMonsterParty, getFreeSpaceInParty, getMonstersInParty, 
-};
+module.exports = { insertMonsterParty, getFreeSpaceInParty, getMonstersInParty };

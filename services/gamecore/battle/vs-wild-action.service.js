@@ -193,13 +193,11 @@ const parseOpponentAction = (input, opponentMonster, target, buffsDebuffs) => {
 
 const nextTurn = async (battleData, turnData, uid) => {
     if (data.wildMonster.current_HP <= 0) {
-        return await onFainted["wild"](battleData.wildMonster, uid);
+        return await onFainted.wild(battleData.wildMonster, uid);
     };
-
     if (data.playerMonsters[0].current_HP <= 0) {
         return await onFainted("player", data.playerMonsters[0], uid);
     };
-
     return {continue: true};
 };
 

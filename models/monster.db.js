@@ -96,4 +96,16 @@ const getAliveWildMonster = async uid => {
     return wild;
 };
 
-module.exports = { insertMonster, getMonster, disableMonster, getAliveWildMonster };
+const discontHealth = async (id, damage) => {
+    return await QueryExecutor.query(
+        `UPDATE \`monsters\` SET \`current_HP\` = \`current_HP\` - '${damage}' WHERE \`id\` = ?`,
+        [id]
+    );
+};
+
+const discontMana = async () => {};
+
+module.exports = {
+    insertMonster, getMonster, disableMonster, 
+    getAliveWildMonster, discontHealth, discontMana
+};

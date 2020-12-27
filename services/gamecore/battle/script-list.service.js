@@ -1,5 +1,5 @@
 const { FN_NAMES } = require("../../../constants/Battle");
-
+const { discontHealth, discontMana } = require("../../../models/monster.db");
 
 const scripts = [];
 
@@ -8,8 +8,13 @@ scripts[FN_NAMES.MOVE_DAMAGE] = async function (params) {};
 
 // Apply buff/debuff
 scripts[FN_NAMES.BUFF_DEBUFF] = async function (params) {
-    console.log(params);
-    return await new Promise(resolve => setTimeout(resolve, 2000));
+	console.log(params);
+	if (!params.hited || !params.canDoMove) {
+		return;
+	};
+    return await Promise.all([
+    	discontHealth(params.monsterId, params.damage)
+    ]);
 };
 
 // Run (only vs wild)

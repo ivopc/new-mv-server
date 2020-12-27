@@ -4,6 +4,18 @@ const { promiseWaterfall } = require("../../../utils");
 
 const scriptList = require("./script-list.service");
 
+const treatParams = {
+    [FN_NAMES.MOVE_DAMAGE]: script => ({
+        monsterId: script.target.data.id,
+        hp: script.param.hp,
+        damage: script.param.damage,
+        moveId: script.param.moveId,
+        attackerId: script.param.attackerId,
+        hited: script.param.hited,
+        canDoMove: script.param.canDoMove
+    })
+};
+
 class Script {
 
     fns = scriptList;
@@ -19,21 +31,7 @@ class Script {
     }
 
     rawCodeParser (script) {
-        let params;
-        switch(script.fnName) {
-            case FN_NAMES.MOVE_DAMAGE: {
-                params = {
-                    monsterId: script.target.data.id,
-                    hp: script.param.hp,
-                    damage: script.param.damage,
-                    moveId: script.param.moveId,
-                    attackerId: script.param.attackerId,
-                    hited: script.param.hited,
-                    canDoMove: script.param.canDoMove
-                };
-                break;
-            };
-        };
+        const params = treatParams[script.fnName](script);
         return async () => await this.callFn(script.fnName, params)
     }
 

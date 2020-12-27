@@ -14,11 +14,17 @@ const insertCurrentDoing = async uid => {
 
 const getCurrentDoing = async uid => {
 	const [ currentDoing ] = await QueryExecutor.query(
-		"SELECT `battle_type`, `if_is_pvp_battle_id`, `doing_battle_action`, `requesting_flag` WHERE `uid` = ?",
+		"SELECT `battle_type`, `if_is_pvp_battle_id`, `doing_battle_action`, `requesting_flag` FROM `current_doing` WHERE `uid` = ?",
 		[uid]
 	);
 	return currentDoing;
 };
+
+const setBattling = async (uid, battleType) =>
+    await QueryExecutor.query(
+        "UPDATE `current_doing` SET `battle_type` = ? WHERE `uid` = ?",
+        [battleType, uid]
+    );
 
 const setNotBattling = async uid => 
     await QueryExecutor.query(
@@ -26,4 +32,13 @@ const setNotBattling = async uid =>
         [uid]
     );
 
-module.exports = { insertCurrentDoing, getCurrentDoing, setNotBattling };
+
+const isBattling = async uid => {
+    const currentDoing = await getCurrentDoing(uid);
+    return currentDoing.battle_type > 0;
+};
+
+module.exports = { 
+    insertCurrentDoing, getCurrentDoing, setNotBattling, setBattling,
+    isBattling
+};

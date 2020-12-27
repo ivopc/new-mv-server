@@ -1,7 +1,7 @@
 const { BATTLE_TYPES, ERRORS } = require("../../../constants/Battle");
 const { promiseWaterfall } = require("../../../utils");
 
-const { getInitialBattleData } = require("./init.service");
+const { bootBattleAction } = require("./init.service");
 
 const vsWildAction = require("./vs-wild-action.service");
 const vsTamerAction = require("./vs-tamer-action.service");
@@ -16,14 +16,14 @@ const battleTypesAction = {
 };
 
 const main = async (uid, input) => {
-    const battleData = await getInitialBattleData(uid, input);
+    const battleData = await bootBattleAction(uid, input);
     if (battleData.error) {
         return {error: ERRORS.PLAYER_ALREADY_DOING_ACTION};
     };
     const action = battleTypesAction[battleData.battleType]();
     const turnData = action.handleAction(input, battleData);
-    await execTurnActions(battleData.battleData, turnData);
-    const newBattleData = await getInitialBattleData(uid, input);
+    await execTurnActions(battleData.battleData, uid, turnData);
+    const newBattleData = await bootBattleAction(uid, input);
     const nextTurnData = await action.nextTurn(newBattleData, turnData, uid);
     if (nextTurn.continue) {
         return turnData;
@@ -32,7 +32,7 @@ const main = async (uid, input) => {
     };
 };
 
-const execTurnActions = async ({ id }, { pre, regular, post }) => {
+const execTurnActions = async ({ id }, uid, { pre, regular, post }) => {
     const script = {
         pre: new Script(id),
         regular: new Script(id),

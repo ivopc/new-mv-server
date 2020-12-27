@@ -2,7 +2,9 @@ const express = require("express");
 const controller = {
     isConnected: require("../controller/utils/is-connected"),
     checkBlockPages: require("../controller/gamecore/check-block-pages"),
+    
     home: require("../controller/gamecore/home"),
+    hunt: require("../controller/gamecore/hunt"),
     battle: require("../controller/gamecore/battle"),
     initialMonster: require("../controller/gamecore/initial-monster")
 };
@@ -11,10 +13,11 @@ const router = express.Router();
 router
     .use(controller.isConnected)
     .use(controller.checkBlockPages)
-
     .get("/home", controller.home.get)
     .get("/team", (req, res) => {})
-    .get("/hunt", (req, res) => {})
+    .get("/hunt", controller.hunt.get)
+    .post("/hunt", controller.hunt.post)
+    .get("/battle", controller.battle.get)
     .post("/battle", controller.battle.post)
     .get("/city", (req, res) => {})
     .get("/bag", (req, res) => {})

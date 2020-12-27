@@ -1,6 +1,7 @@
 module.exports = {
-	CAPTCHA: 1,
-	INITIAL_MONSTER: 2,
-	
-	ERROR: 1
+    CAPTCHA: 1,
+    INITIAL_MONSTER: 2,
+    BATTLING: 3,
+
+    ERROR: 1
 };

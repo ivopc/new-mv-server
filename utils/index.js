@@ -6,6 +6,7 @@ const promiseWaterfall = (callbacks, initialArgs) =>
         Promise.resolve(initialArgs)
     );
 
+const mathRandomBetween = num => Math.floor(Math.random() * (num[1] - num[0] + 1) + num[0]);
 
 const randomString = (len = 10) => {
     const str = "1234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
@@ -66,7 +67,7 @@ const filterMonsterData = monsterData => {
 const filterMonsterList = monsterList => monsterList.map(filterMonsterData);
 
 module.exports = { 
-    promiseWaterfall, randomString, comparePasswordHash, 
+    promiseWaterfall, mathRandomBetween, randomString, comparePasswordHash, 
     cryptPassword, booleanToInt, validateEmail, 
     isObjectEmpty, filterMonsterData, filterMonsterList
 };

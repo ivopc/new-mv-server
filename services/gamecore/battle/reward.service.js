@@ -1,3 +1,8 @@
+const Resources = {
+    Dex: require("../../../database/game/dex.json"),
+    Formulas: require("../../../formulas")
+};
+
 const checkAndInsertQuestDefeat = async () => {};
 const expReward = async (faintedMonsterData, uid) => {
     const expReward = Resources.Formulas.Exp.Calc.battleExpReward({
@@ -14,11 +19,15 @@ const expReward = async (faintedMonsterData, uid) => {
 
     return await giveExpRaw(expReward, 1);
 };
-const giveExpRaw = async () => {};
+const giveExpRaw = async () => {
+    return new Promise(resolve => setTimeout(resolve, 0)); 
+};
 const addExpShareToMonster = async () => {};
 const removeExpShareToMonster = async () => {};
 const coinReward = async () => {};
-const itemDrop = async () => {};
+const itemDrop = async () => {
+    return new Promise(resolve => setTimeout(resolve, 0)); 
+};
 
 module.exports = {
     checkAndInsertQuestDefeat, expReward, giveExpRaw, addExpShareToMonster,

@@ -33,7 +33,7 @@ scripts[FN_NAMES.HEALTH_POTION] = async function (params) {};
 scripts[FN_NAMES.STATUS_PROBLEM] = async function (params) {};
 
 // Status problem heal
-scripts[FN_NAMES.AWAKE] = async function (params) {};
+scripts[FN_NAMES.HEALED] = async function (params) {};
 
 // Raw Damage
 scripts[FN_NAMES.RAW_DAMAGE] = async function (params) {};

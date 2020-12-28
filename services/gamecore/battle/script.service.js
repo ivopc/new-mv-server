@@ -6,7 +6,7 @@ const scriptList = require("./script-list.service");
 
 const treatParams = {
     [FN_NAMES.MOVE_DAMAGE]: script => ({
-        monsterId: script.target.data.id,
+        monsterId: script.target.id,
         hp: script.param.hp,
         damage: script.param.damage,
         moveId: script.param.moveId,

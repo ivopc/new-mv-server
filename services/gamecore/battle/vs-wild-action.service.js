@@ -1,5 +1,18 @@
-const { STATUS_PROBLEM } = require("../../../constants/Battle");
+const { FN_NAMES, STATUS_PROBLEM } = require("../../../constants/Battle");
+
+const Resources = {
+    Moves: require("../../../database/game/newmoves"),
+    StatChange: require("../../../database/game/statchange.json")
+};
+
 const { onFainted } = require("./event.service");
+const { 
+    handleMove, 
+    handleItem, 
+    handleRun, 
+    handleStatusProblem 
+} = require("./base-action.service");
+const { treatBuffDebuff } = require("./formula.service");
 
 const handleAction = (input, battleData) => {
 	// register all turn steps to send to script to run in database
@@ -20,7 +33,7 @@ const handleAction = (input, battleData) => {
 		opponent: null
 	};
 	// treat buffs and debuffs in battle
-	const buffsDebuffs = {/*{...}*/};
+	const buffsDebuffs = treatBuffDebuff();
 	// treat challenger action
 	action.challenger = parseChallengerAction(
 		input,
@@ -28,6 +41,11 @@ const handleAction = (input, battleData) => {
 		battleData.playerMonsters,
 		buffsDebuffs
 	);
+    action.challender.id = "challenger";
+    action.player.target = {
+        id: activeMonsters.opponent.id,
+        name: "opponent"
+    };
     // check if has status problem
     if (activeMonsters.challenger.status_problem > 0)
         handleStatusProblem(activeMonsters.challenger, action.challenger, turns);
@@ -40,16 +58,21 @@ const handleAction = (input, battleData) => {
         activeMonsters.challenger,
         buffsDebuffs
     );
+    action.opponent.id = "opponent";
+    action.opponent.target = {
+        id: activeMonsters.challenger.id,
+        name: "challenger"
+    };
     // check if has status problem
     if (activeMonsters.opponent.status_problem > 0)
         handleStatusProblem(activeMonsters.opponent, action.opponent, turns);
     // ** Who attack first?
-    switch (action.challenger.fn_name) {
+    switch (action.challenger.fnName) {
         // all actions who must happend before regular turn
-        case "health_potion":
-        case "magic_seal":
-        case "change_monster":
-        case "run":
+        case FN_NAMES.HEALTH_POTION:
+        case FN_NAMES.MAGIC_SEAL:
+        case FN_NAMES.CHANGE_MONSTER:
+        case FN_NAMES.RUN:
         {
             turns.pre.push(action.challenger);
             turns.regular.push(action.opponent);
@@ -70,7 +93,7 @@ const handleAction = (input, battleData) => {
     // ** Modifiers
     // if the challenger monster is the first to attack and it choosed status problem attack
     if (
-        action.challenger.fn_name == "status_problem" && 
+        action.challenger.fnName == FN_NAMES.STATUS_PROBLEM && 
         turns.regular.findIndex(action => action.param.attacker_id == player.monster.id) == 0 &&
         action.challenger.param.canDoMove &&
         action.challenger.param.hited
@@ -83,14 +106,14 @@ const handleAction = (input, battleData) => {
             action.bot.param.canDoMove = false;
         };
     };
-    if (turns.regular[0].fn_name == "move_damage" && turns.regular[0].param.hited && turns.regular[0].param.canDoMove) {
+    if (turns.regular[0].fnName == FN_NAMES.MOVE_DAMAGE && turns.regular[0].param.hited && turns.regular[0].param.canDoMove) {
         // if the firt hited monster hp is equals to zero remove the move of second attackert
         if (turns.regular[0].param.hp <= 0) {
             delete turns.regular[1];
         };
     };
     // if the player try to run and can run
-    if (action.challenger.fn_name == "run" && action.challenger.param === true) {
+    if (action.challenger.fnName == FN_NAMES.RUN && action.challenger.param === true) {
         // remove the opponent attack
         for (let i = 0; i < turns.regular.length; i++) {
             if (turns.regular[i].id == "opponent")
@@ -105,7 +128,7 @@ const parseChallengerAction = (input, activeMonsters, challengerMonsters, buffsD
     let action;
     switch (input.action) {
         case "move": {
-            action = this.handleMove(
+            action = handleMove(
                 // move
                 Resources.Moves[activeMonsters.challenger["move_" + input.param]],
                 // attacker = monstro atual do jogador
@@ -122,7 +145,7 @@ const parseChallengerAction = (input, activeMonsters, challengerMonsters, buffsD
         };
         // caso tente fugir
         case "run": {
-            action = this.handleRun(
+            action = handleRun(
                 activeMonsters.challenger,
                 activeMonsters.opponent
             );
@@ -130,7 +153,7 @@ const parseChallengerAction = (input, activeMonsters, challengerMonsters, buffsD
         };
         // caso escolheu um item
         case "item": {
-            action = this.handleItem(
+            action = handleItem(
                 input.param.item,
                 challengerMonsters[input.param.monster]
             );
@@ -139,7 +162,7 @@ const parseChallengerAction = (input, activeMonsters, challengerMonsters, buffsD
         // caso tente mudar o monstro
         case "change": {
             action = {
-                fn_name: "change_monster",
+                fnName: FN_NAMES.CHANGE_MONSTER,
                 param: {
                     index: input.param,
                     hasExpShare: true
@@ -168,7 +191,7 @@ const parseOpponentAction = (input, opponentMonster, target, buffsDebuffs) => {
     let action;
     switch (input.action) {
         case "move": {
-            action = this.handleMove(
+            action = handleMove(
                 // move
                 input.param,
                 // attacker (wildMonster) = current monster

@@ -1,4 +1,4 @@
-const { BATTLE_TYPES, ERRORS } = require("../../../constants/Battle");
+const { BATTLE_TYPES, ERRORS, FN_NAMES } = require("../../../constants/Battle");
 const { promiseWaterfall } = require("../../../utils");
 
 const { bootBattleAction } = require("./init.service");
@@ -28,7 +28,8 @@ const main = async (uid, input) => {
     if (nextTurn.continue) {
         return turnData;
     } else {
-
+        finishBattle(turnData);
+        return turnData;
     };
 };
 
@@ -46,6 +47,15 @@ const execTurnActions = async ({ id }, uid, { pre, regular, post }) => {
         async () => await script.regular.exec(),
         async () => await script.post.exec()
     ]);
+};
+
+const finishBattle = (uid, turnData) => {
+    turnData.post.push({
+        fnName: FN_NAMES.FAINTED,
+        param: {
+            target: "wild" 
+        }
+    });
 };
 
 // ;(async () => {

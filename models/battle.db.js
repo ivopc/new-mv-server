@@ -54,6 +54,8 @@ const getAllBattleInfo = async (battleType, uid) => {
                 getBattle(uid)
             ]);
             const playerMonsters = new PartySchema(_playerMonsters);
+            console.log("raw", _playerMonsters);
+            console.log("PartySchema", playerMonsters);
             const buffsDebuffs = await getBattleBuffsDebuffs(battleData.id);
             return { playerMonsters, wildMonster, battleData, buffsDebuffs };
             break;

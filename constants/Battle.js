@@ -29,8 +29,9 @@ const FN_NAMES = {
     MAGIC_SEAL: 4,
     HEALTH_POTION: 5,
     STATUS_PROBLEM: 6,
-    AWAKE: 7,
-    RAW_DAMAGE: 99
+    HEALED: 7,
+    RAW_DAMAGE: 99,
+    FAINTED: 100
 };
 
 module.exports = { BATTLE_TYPES, ACTIONS, ERRORS, STATUS_PROBLEM, FN_NAMES };

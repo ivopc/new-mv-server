@@ -1,5 +1,5 @@
 class PartySchema extends Array {
-    constructor ( ... monsters) {
+    constructor (monsters) {
         super( ... monsters);
     }
 

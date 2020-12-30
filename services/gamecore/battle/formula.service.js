@@ -1,3 +1,5 @@
+const { mathRandomBetween } = require("../../../utils");
+
 const Resources = {
     Dex: require("../../../database/game/dex.json"),
     Items: null,
@@ -41,10 +43,7 @@ const applyDamage = (move, attacker, target, buffs) => {
     });
     // edita o hp atual do monstro de acordo com o dano
     const hp = (target["current_HP"] - damage < 0) ? 0 : target["current_HP"] - damage;
-    return {
-        hp,
-        damage
-    };
+    return { hp, damage };
 };
 
 const applyStatusProblem = move => {
@@ -73,14 +72,14 @@ const applyAccuracy = (move, buffDebuff = 0) => {
     if (move.accuracy === true)
         return true;
 
-    const rate = math.random.between([0, 100]);
+    const rate = mathRandomBetween([0, 100]);
     return rate <= move.accuracy * Resources.StatChange.accuracy[buffDebuff];
 };
 
 const tryTameMonster = (monster, sealId, hp) => {
     let dexData = Resources.Dex[monster.monsterpedia_id],
         seal = Resources.Items[sealId],
-        rate = math.random.between([0, 100]);
+        rate = mathRandomBetween([0, 100]);
     // if was master seal, always will be 100% of catch rate
     if (seal.effect.tame_rate == 0)
         return true;

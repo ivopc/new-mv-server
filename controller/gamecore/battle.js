@@ -1,4 +1,4 @@
-const { BATTLE_TYPES, ACTIONS } = require("../../constants/Battle");
+const { BATTLE_TYPES, ACTIONS, ERRORS } = require("../../constants/Battle");
 
 const { onEnterIdle } = require("../../services/gamecore/battle/init.service");
 const main = require("../../services/gamecore/battle/main.service");
@@ -25,10 +25,11 @@ exports.get = async (req, res) => {
 
 exports.post = async (req, res) => {
     let response;
-    switch (req.query["action"]) {
+    switch (req.body["action"]) {
         case ACTIONS.MOVE: {
             response = await main(req.session["uid"], {
-                param: req.query["param"]
+                action: ACTIONS.MOVE,
+                param: req.body["param"]
             });
             break;
         };
@@ -37,7 +38,7 @@ exports.post = async (req, res) => {
         case ACTIONS.RUN: {break;};
         default: {
             response = {
-                error: "EMPTY_ACTION"
+                error: ERRORS.EMPTY_ACTION
             };
             break;
         };

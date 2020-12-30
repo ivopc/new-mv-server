@@ -1,6 +1,6 @@
-const { FN_NAMES, STATUS_PROBLEM } = require("../../../constants/Battle");
+const { FN_NAMES, STATUS_PROBLEM, ACTIONS } = require("../../../constants/Battle");
 
-const Resources = {
+const Resources = { 
     Moves: require("../../../database/game/newmoves"),
     StatChange: require("../../../database/game/statchange.json")
 };
@@ -41,8 +41,8 @@ const handleAction = (input, battleData) => {
 		battleData.playerMonsters,
 		buffsDebuffs
 	);
-    action.challender.id = "challenger";
-    action.player.target = {
+    action.challenger.id = "challenger";
+    action.challenger.target = {
         id: activeMonsters.opponent.id,
         name: "opponent"
     };
@@ -127,7 +127,7 @@ const handleAction = (input, battleData) => {
 const parseChallengerAction = (input, activeMonsters, challengerMonsters, buffsDebuffs) => {
     let action;
     switch (input.action) {
-        case "move": {
+        case ACTIONS.MOVE: {
             action = handleMove(
                 // move
                 Resources.Moves[activeMonsters.challenger["move_" + input.param]],
@@ -144,7 +144,7 @@ const parseChallengerAction = (input, activeMonsters, challengerMonsters, buffsD
             break;
         };
         // caso tente fugir
-        case "run": {
+        case ACTIONS.RUN: {
             action = handleRun(
                 activeMonsters.challenger,
                 activeMonsters.opponent
@@ -152,7 +152,7 @@ const parseChallengerAction = (input, activeMonsters, challengerMonsters, buffsD
             break;
         };
         // caso escolheu um item
-        case "item": {
+        case ACTIONS.ITEM: {
             action = handleItem(
                 input.param.item,
                 challengerMonsters[input.param.monster]
@@ -160,7 +160,7 @@ const parseChallengerAction = (input, activeMonsters, challengerMonsters, buffsD
             break;
         };
         // caso tente mudar o monstro
-        case "change": {
+        case ACTIONS.SWITCH_MONSTER: {
             action = {
                 fnName: FN_NAMES.CHANGE_MONSTER,
                 param: {
@@ -177,12 +177,12 @@ const parseChallengerAction = (input, activeMonsters, challengerMonsters, buffsD
 const chooseOpponentAction = opponentMonster => {
     let choose = false, move;
     while (!choose) {
-        move = opponentMonster["move_" + String(Math.floor(Math.random() * 4))];
+        move = opponentMonster["move_" + Math.floor(Math.random() * 4)];
         if (move in Resources.Moves)
             choose = true;
     };
     return {
-        action: "move",
+        action: ACTIONS.MOVE,
         param: Resources.Moves[move]
     };
 };
@@ -190,7 +190,7 @@ const chooseOpponentAction = opponentMonster => {
 const parseOpponentAction = (input, opponentMonster, target, buffsDebuffs) => {
     let action;
     switch (input.action) {
-        case "move": {
+        case ACTIONS.MOVE: {
             action = handleMove(
                 // move
                 input.param,
@@ -207,7 +207,7 @@ const parseOpponentAction = (input, opponentMonster, target, buffsDebuffs) => {
 
             break;
         };
-        case "run": {
+        case ACTIONS.RUN: {
             break;
         };
     };
@@ -215,11 +215,11 @@ const parseOpponentAction = (input, opponentMonster, target, buffsDebuffs) => {
 };
 
 const nextTurn = async (battleData, turnData, uid) => {
-    if (data.wildMonster.current_HP <= 0) {
+    if (battleData.wildMonster.current_HP <= 0) {
         return await onFainted.wild(battleData.wildMonster, uid);
     };
-    if (data.playerMonsters[0].current_HP <= 0) {
-        return await onFainted("player", data.playerMonsters[0], uid);
+    if (battleData.playerMonsters[0].current_HP <= 0) {
+        return await onFainted.player(battleData.playerMonsters[0], uid);
     };
     return {continue: true};
 };

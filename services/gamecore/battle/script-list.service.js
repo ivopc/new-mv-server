@@ -4,18 +4,17 @@ const { discontHealth, discontMana } = require("../../../models/monster.db");
 const scripts = [];
 
 // Apply damage
-scripts[FN_NAMES.MOVE_DAMAGE] = async function (params) {};
-
-// Apply buff/debuff
-scripts[FN_NAMES.BUFF_DEBUFF] = async function (params) {
-	console.log(params);
-	if (!params.hited || !params.canDoMove) {
-		return;
-	};
+scripts[FN_NAMES.MOVE_DAMAGE] = async function (params) {
+    if (!params.hited || !params.canDoMove) {
+        return;
+    };
     return await Promise.all([
-    	discontHealth(params.monsterId, params.damage)
+        discontHealth(params.monsterId, params.damage)
     ]);
 };
+
+// Apply buff/debuff
+scripts[FN_NAMES.BUFF_DEBUFF] = async function (params) {};
 
 // Run (only vs wild)
 scripts[FN_NAMES.RUN] = async function (params) {};

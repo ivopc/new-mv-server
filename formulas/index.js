@@ -118,11 +118,6 @@ Battle.Calc.damage.all = function (object) {
         def: Utils.statchange.stats[object.buffs.target]
     };
 
-    console.log("buffs", {
-        attacker_atk: buff["atk"], 
-        target_def: buff["def"]
-    });
-
     var dmg = (((2 * object.attacker["level"] + 10) / 250) * ((object.attacker["atk"] * buff["atk"]) / (object.target["def"] * buff["def"])) * (object.attacker["basePower"] + 2)),
         mod =  object.mod["stab"] * object.mod["typeChart"] * (object.mod["critical"] ? 1.5 : 1) * _.math.random.betweenDecimal([0.70, 1]);//  * object.mod["item"];
 

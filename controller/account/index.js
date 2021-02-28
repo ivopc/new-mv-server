@@ -8,15 +8,16 @@ exports.login = async (req, res) => {
     const { username, password } = req.body;
     const login = new Login(req, res);
     // validate inputs
-    if (!login.isInputValid(username || "", password || "")) { 
+    if (!login.isInputValid(username || "", password || "")) {
         res.status(401).json({error: LOGIN.ERROR.LENGTH});
         return;
     };
     let user;
     // checking if user exists
     try {
-        const getUserData = true;
-        [ user ] = await checkIfUserExists(username, getUserData);
+        // (just a boolean to make it readable)
+        const GET_USER_DATA = true;
+        [ user ] = await checkIfUserExists(username, GET_USER_DATA);
     } catch (err) {
         res.status(500).json({error: LOGIN.ERROR.INTERNAL_ERROR});
         return; 
@@ -50,10 +51,11 @@ exports.register = async (req, res) => {
         res.status(401).json({error: REGISTER.ERROR.INVALID_INPUT});
         return;
     };
-    // check if user exists and email is in use
-    const getUserData = false;
+    // check if user exists and email is in use 
+    // (just a boolean to make it interpretable)
+    const GET_USER_DATA = false;
     const [ userExists, emailInUse ] = await Promise.all([
-        checkIfUserExists(username, getUserData),
+        checkIfUserExists(username, GET_USER_DATA),
         checkIfEmailInUse(email)
     ]);
     if (userExists) {

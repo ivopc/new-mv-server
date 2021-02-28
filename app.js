@@ -53,3 +53,38 @@ app
 app.listen(app.get("port"), () => 
     console.log(`Monster Valle is running on port ${app.get("port")}`)
 );
+
+class Worker extends SCWorker {
+    run() {
+        console.log("   >> Worker PID:", process.pid);
+        const environment = this.options.environment;
+
+        const httpServer = this.httpServer;
+        scServer = this.scServer;
+
+        if (environment === "dev") {
+            // Log every HTTP request. See https://github.com/expressjs/morgan for other
+            // available formats.
+            app.use(morgan("dev"));
+        };
+
+        // Add GET /health-check express route
+        healthChecker.attach(this, app);
+
+        httpServer.on("request", app);
+        SocketServerHandler.ref = new SocketServerHandler(scServer);
+        scServer.on("connection", SocketListener.conn);
+        // Autenticar entrada no websocket
+        scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE_WS, SocketListener.auth);
+        // Autenticar inscrição nos canais
+        scServer.addMiddleware(scServer.MIDDLEWARE_SUBSCRIBE, SocketListener.subscribe);
+        // Autenticar publicação nos canais
+        scServer.addMiddleware(scServer.MIDDLEWARE_PUBLISH_IN, SocketListener.publishIn);
+        // Controlar pra quem vai enviar nos canais
+        scServer.addMiddleware(scServer.MIDDLEWARE_PUBLISH_OUT, SocketListener.publishOut);
+        // Controlar emição de socket
+        scServer.addMiddleware(scServer.MIDDLEWARE_EMIT, SocketListener.emit);
+    }
+};
+
+new Worker();

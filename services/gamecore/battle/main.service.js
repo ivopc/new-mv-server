@@ -10,9 +10,9 @@ const vsPlayerAction = require("./vs-player-action.service");
 const Script = require("./script.service");
 
 const battleTypesAction = {
-    [BATTLE_TYPES.WILD]: () => vsWildAction,
-    [BATTLE_TYPES.TAMER]: () => vsTamerAction,
-    [BATTLE_TYPES.PVP]: () => vsPlayerAction
+    [BATTLE_TYPES.WILD]: vsWildAction,
+    [BATTLE_TYPES.TAMER]: vsTamerAction,
+    [BATTLE_TYPES.PVP]: vsPlayerAction
 };
 
 const main = async (uid, input) => {
@@ -20,7 +20,7 @@ const main = async (uid, input) => {
     if (battleData.error) {
         return {error: ERRORS.PLAYER_ALREADY_DOING_ACTION};
     };
-    const action = battleTypesAction[battleData.battleData.battle_type]();
+    const action = battleTypesAction[battleData.battleData.battle_type];
     const turnData = action.handleAction(input, battleData);
     await execTurnActions(battleData.battleData, uid, turnData);
     const newBattleData = await bootBattleAction(uid, input);

@@ -54,6 +54,10 @@ const insertCurrentDoing = async uid => {
 
 
 module.exports = { 
-	createUser, fetchUserById, userExists, 
-	emailInUse, setUserBannedById, insertCurrentDoing
+	createUser, 
+	fetchUserById, 
+	userExists, 
+	emailInUse, 
+	setUserBannedById, 
+	insertCurrentDoing
 };

@@ -1,6 +1,6 @@
 const { FN_NAMES, STATUS_PROBLEM, ACTIONS } = require("../../../constants/Battle");
 
-const Resources = { 
+const Resources = {
     Moves: require("../../../database/game/newmoves"),
     StatChange: require("../../../database/game/statchange.json")
 };

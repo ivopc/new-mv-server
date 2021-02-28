@@ -87,26 +87,26 @@ const tryTameMonster = (monster, sealId, hp) => {
     // HP percetage
     let percentage = (hp.current / hp.total) * 100;
     // set base multiply 1
-    let hp_rate = 1;
+    let hpRate = 1;
     // if was 1% grow 2.1, if was 20% 1.7 and 50% 1.2
     if (percentage <= 1) {
-        hp_rate = 2.1;
+        hpRate = 2.1;
     } else if (percentage <= 20 && !(percentage >= 20)) {
-        hp_rate = 1.7;
+        hpRate = 1.7;
     } else if (percentage <= 50 && !(percentage >= 50)) {
-        hp_rate = 1.2;
+        hpRate = 1.2;
     };
     // * Status problem changes
-    let status_problem_rate = 1;
+    let statusProblemRate = 1;
     switch (monster.status_problem) {
         // paralyzed
         case 1: {
-            status_problem_rate = 1.3;
+            statusProblemRate = 1.3;
             break;
         };
         // sleeping
         case 5: {
-            status_problem_rate = 1.8;
+            statusProblemRate = 1.8;
             break;
         };
     };
@@ -115,12 +115,12 @@ const tryTameMonster = (monster, sealId, hp) => {
         "\nsorteado:", rate, 
         "\nchance de cap. do monstro:", dexData.tame_rate, 
         "\nboost aumentado do selo:", seal.effect.tame_rate, 
-        "\nboost aumentado de acordo com o HP:", hp_rate,
-        "\nboost aumentado de acordo com status problem:", status_problem_rate,
-        "\nchance de cap. com os modificadores (boosts):", dexData.tame_rate * seal.effect.tame_rate * hp_rate * status_problem_rate
+        "\nboost aumentado de acordo com o HP:", hpRate,
+        "\nboost aumentado de acordo com status problem:", statusProblemRate,
+        "\nchance de cap. com os modificadores (boosts):", dexData.tame_rate * seal.effect.tame_rate * hpRate * statusProblemRate
     );
     // return the percetage of catch
-    return rate <= dexData.tame_rate * seal.effect.tame_rate * hp_rate * status_problem_rate;
+    return rate <= dexData.tame_rate * seal.effect.tame_rate * hpRate * statusProblemRate;
 };
 
 const treatBuffDebuff = () => ({

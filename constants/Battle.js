@@ -35,4 +35,10 @@ const FN_NAMES = {
     FAINTED: 100
 };
 
-module.exports = { BATTLE_TYPES, ACTIONS, ERRORS, STATUS_PROBLEM, FN_NAMES };
+module.exports = { 
+    BATTLE_TYPES, 
+    ACTIONS, 
+    ERRORS, 
+    STATUS_PROBLEM, 
+    FN_NAMES 
+};

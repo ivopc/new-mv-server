@@ -40,7 +40,7 @@ const getMonstersInParty = async uid => {
         "SELECT `monster0`, `monster1`, `monster2`, `monster3`, `monster4`, `monster5` FROM `monsters_in_party` WHERE `uid` = ?",
         [uid]
     );
-    // create fn list to store the monster in party data getting async
+    // create function list to store the monster in party data getting async
     const fns = [];
     for (let i = 0; i < 6; i ++) {
         fns[i] = async () => {

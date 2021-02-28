@@ -32,7 +32,7 @@ class Script {
 
     rawCodeParser (script) {
         const params = treatParams[script.fnName](script);
-        return async () => await this.callFn(script.fnName, params)
+        return async () => await this.callFn(script.fnName, params);
     }
 
     async exec () {

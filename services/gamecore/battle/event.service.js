@@ -9,8 +9,12 @@ onFainted.wild = async (faintedMonsterData, uid) => await onWildFainted(faintedM
 
 const onWildFainted = async (faintedMonsterData, uid) => {
     const [
-        setCurrentDoing, disableWild, removeBattle,
-        insertQuestDefeat, expBattleReward, itemBattleDrop
+        setCurrentDoing, 
+        disableWild, 
+        removeBattle,
+        insertQuestDefeat, 
+        expBattleReward, 
+        itemBattleDrop
      ] = await Promise.all([
         setNotBattling(uid),
         disableMonster(faintedMonsterData.id),

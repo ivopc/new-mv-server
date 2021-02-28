@@ -106,6 +106,10 @@ const discontHealth = async (id, damage) => {
 const discontMana = async () => {};
 
 module.exports = {
-    insertMonster, getMonster, disableMonster, 
-    getAliveWildMonster, discontHealth, discontMana
+    insertMonster,
+    getMonster,
+    disableMonster,
+    getAliveWildMonster,
+    discontHealth,
+    discontMana
 };

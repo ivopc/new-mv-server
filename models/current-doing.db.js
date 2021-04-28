@@ -11,7 +11,6 @@ const insertCurrentDoing = async uid => {
         requesting_flag: booleanToInt(false)
     });
 };
-
 const getCurrentDoing = async uid => {
 	const [ currentDoing ] = await QueryExecutor.query(
 		"SELECT `battle_type`, `if_is_pvp_battle_id`, `doing_battle_action`, `requesting_flag` FROM `current_doing` WHERE `uid` = ?",
@@ -39,6 +38,9 @@ const isBattling = async uid => {
 };
 
 module.exports = { 
-    insertCurrentDoing, getCurrentDoing, setNotBattling, setBattling,
+    insertCurrentDoing, 
+    getCurrentDoing, 
+    setNotBattling, 
+    setBattling,
     isBattling
 };

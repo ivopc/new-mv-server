@@ -15,25 +15,23 @@ const battleTypesAction = {
     [BATTLE_TYPES.PVP]: vsPlayerAction
 };
 
-const main = async (uid, input) => {
-    const battleData = await bootBattleAction(uid, input);
+const main = async (userId, input) => {
+    const battleData = await bootBattleAction(userId, input);
     if (battleData.error) {
-        return {error: ERRORS.PLAYER_ALREADY_DOING_ACTION};
+        return { error: ERRORS.PLAYER_ALREADY_DOING_ACTION };
     };
     const action = battleTypesAction[battleData.battleData.battle_type];
     const turnData = action.handleAction(input, battleData);
-    await execTurnActions(battleData.battleData, uid, turnData);
-    const newBattleData = await bootBattleAction(uid, input);
-    const nextTurnData = await action.nextTurn(newBattleData, turnData, uid);
-    if (nextTurnData.continue) {
-        return turnData;
-    } else {
-        finishBattle(turnData);
-        return turnData;
+    await execTurnActions(battleData.battleData, userId, turnData);
+    const battleDataNewTurn = await bootBattleAction(userId, input);
+    const nextTurnData = await action.nextTurn(battleDataNewTurn, turnData, userId);
+    if (!nextTurnData.continue) {
+        finishBattle(userId, turnData);
     };
+    return turnData;
 };
 
-const execTurnActions = async ({ id }, uid, { pre, regular, post }) => {
+const execTurnActions = async ({ id }, userId, { pre, regular, post }) => {
     const script = {
         pre: new Script(id),
         regular: new Script(id),
@@ -49,7 +47,7 @@ const execTurnActions = async ({ id }, uid, { pre, regular, post }) => {
     ]);
 };
 
-const finishBattle = (uid, turnData) => {
+const finishBattle = (userId, turnData) => {
     turnData.post.push({
         fnName: FN_NAMES.FAINTED,
         param: {

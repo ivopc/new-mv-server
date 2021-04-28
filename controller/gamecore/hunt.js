@@ -1,6 +1,9 @@
 const { 
-    createBattle, generateRandomWild, insertWildMonster, 
-    getPlayerPartyMonster, setUserBattlingVsWild 
+    createBattle, 
+    generateRandomWild, 
+    insertWildMonster, 
+    getPlayerPartyMonster, 
+    setUserBattlingVsWild 
 } = require("../../services/gamecore/hunt.service");
 
 const { BATTLE_TYPES } = require("../../constants/Battle");

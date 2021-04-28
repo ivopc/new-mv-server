@@ -7,7 +7,7 @@ class SocketHandlerWrapper {
         this.socket.emit(event, data);
     }
 
-    on (event, fn) {
+    addEvent (event, fn) {
         this.socket.on(event, fn);
         return this;
     }

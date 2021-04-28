@@ -5,7 +5,7 @@ const Resources = {
     StatChange: require("../../../database/game/statchange.json")
 };
 
-const { onFainted } = require("./event.service");
+const { onWildFainted, onPlayerFainted } = require("./event.service");
 const { 
     handleMove, 
     handleItem, 
@@ -214,14 +214,14 @@ const parseOpponentAction = (input, opponentMonster, target, buffsDebuffs) => {
     return action;
 };
 
-const nextTurn = async (battleData, turnData, uid) => {
+const nextTurn = async (battleData, turnData, userId) => {
     if (battleData.wildMonster.current_HP <= 0) {
-        return await onFainted.wild(battleData.wildMonster, uid);
+        return await onWildFainted(battleData.wildMonster, userId);
     };
     if (battleData.playerMonsters[0].current_HP <= 0) {
-        return await onFainted.player(battleData.playerMonsters[0], uid);
+        return await onPlayerFainted(battleData.playerMonsters[0], userId);
     };
-    return {continue: true};
+    return { continue: true };
 };
 
 

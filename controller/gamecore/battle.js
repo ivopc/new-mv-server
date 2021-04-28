@@ -3,7 +3,6 @@ const { BATTLE_TYPES, ACTIONS, ERRORS } = require("../../constants/Battle");
 const { onEnterIdle } = require("../../services/gamecore/battle/init.service");
 const main = require("../../services/gamecore/battle/main.service");
 
-
 exports.get = async (req, res) => {
     const initialData = await onEnterIdle(req.session["uid"]);
     if (initialData.battling === false) {

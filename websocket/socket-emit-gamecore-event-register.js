@@ -1,26 +1,27 @@
 const url = require("url");
 
 const
-    Player = require("./controller/Player.js"),
-    Character = require("./controller/Character.js"),
-    Flag = require("./controller/Flag.js"),
-    Chat = require("./controller/Chat.js"),
-    Monster = require("./controller/Monster.js"),
-    Box = require("./controller/Box.js"),
-    Battle = require("./controller/Battle.js"),
-    Wild = require("./controller/Wild.js"),
-    Level = require("./controller/Level.js"),
-    Bag = require("./controller/Bag.js"),
-    Mart = require("./controller/Mart.js"),
-    Quest = require("./controller/Quest.js"),
-    Tamer = require("./controller/Tamer.js"),
-    Notication = require("./controller/Notication.js");
+    Player = require("./controller/Player"),
+    Character = require("./controller/Character"),
+    Flag = require("./controller/Flag"),
+    Chat = require("./controller/Chat"),
+    Monster = require("./controller/Monster"),
+    Box = require("./controller/Box"),
+    Battle = require("./controller/Battle"),
+    Wild = require("./controller/Wild"),
+    Level = require("./controller/Level"),
+    Bag = require("./controller/Bag"),
+    Mart = require("./controller/Mart"),
+    Quest = require("./controller/Quest"),
+    Tamer = require("./controller/Tamer"),
+    Notication = require("./controller/Notication");
 
 const SocketHandlerWrapper = require("./SocketHandlerWrapper");
 
 function main(socket) {
-    const socketWrapper = new SocketHandlerWrapper(socket);
-    const userId = url.parse(socket.request.url, true).query.userid;
+    const 
+        socketWrapper = new SocketHandlerWrapper(socket),
+        userId = url.parse(socket.request.url, true).query["userid"];
     [
         Player,
         CharacterMove,
@@ -36,9 +37,9 @@ function main(socket) {
         Quest,
         Tamer,
         Notication
-    ].forEach(Controller => {
-        const _evt = new Controller(socketWrapper, userId);
-        _evt.registerEvents();
+    ].forEach(SocketController => {
+        const controller = new SocketController(socketWrapper, userId);
+        controller.registerEvents();
     });
 };
 

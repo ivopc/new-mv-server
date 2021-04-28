@@ -31,15 +31,16 @@ class Player extends AbstractController {
     getRemoteProfile () {}
 
     registerEvents () {
+        this.connect();
         this.socket
-            .on(EVENTS.PING, () => this.ping())
-            .on(EVENTS.CHANGE_SKIN, (input, response) => this.changeSkin(input))
-            .on(EVENTS.REQUEST_SELF_PROFILE_DATA, (_, response) => this.getSelfProfile())
-            .on(EVENTS.REQUEST_PROFILE_DATA, (input, response) => this.getRemoteProfile(input))
-            .on(EVENTS.GET_MONSTERS, (input, response) => this.getMonsters(input))
-            .on(EVENTS.GET_PLAYER_DATA, (_, response) => this.getSelfPlayerData(_, response))
-            .on(EVENTS.DISCONNECT, () => this.disconnect());
+            .addEvent(EVENTS.PING, () => this.ping())
+            .addEvent(EVENTS.CHANGE_SKIN, (input, response) => this.changeSkin(input))
+            .addEvent(EVENTS.REQUEST_SELF_PROFILE_DATA, (_, response) => this.getSelfProfile())
+            .addEvent(EVENTS.REQUEST_PROFILE_DATA, (input, response) => this.getRemoteProfile(input))
+            .addEvent(EVENTS.GET_MONSTERS, (input, response) => this.getMonsters(input, response))
+            .addEvent(EVENTS.GET_PLAYER_DATA, (_, response) => this.getSelfPlayerData(_, response))
+            .addEvent(EVENTS.DISCONNECT, () => this.disconnect());
     }
 };
 
-module.exports = AbstractController;
+module.exports = Player;

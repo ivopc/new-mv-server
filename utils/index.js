@@ -1,9 +1,9 @@
 const bcrypt = require("bcryptjs");
 
-const promiseWaterfall = (callbacks, initialArgs) =>
+const promiseWaterfall = callbacks =>
     callbacks.reduce((accumulator, callback) => 
         accumulator.then(callback), 
-        Promise.resolve(initialArgs)
+        Promise.resolve(null)
     );
 
 const mathRandomBetween = num => Math.floor(Math.random() * (num[1] - num[0] + 1) + num[0]);

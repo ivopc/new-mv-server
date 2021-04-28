@@ -1,8 +1,8 @@
 const QueryExecutor = require("../database/MySQLQueryExecutor");
 
-const insertGameData = async uid => {
+const insertGameData = async userId => {
     return await QueryExecutor.query("INSERT INTO `in_game_data` SET ?", {
-        uid,
+        user_id: userId,
         silver: 100,
         gold: 0,
         points: 0,
@@ -12,7 +12,7 @@ const insertGameData = async uid => {
     });
 };
 
-const getGameData = async uid => {
+const getGameData = async userId => {
     const [ gameData ] = await QueryExecutor.query(
         "SELECT `silver`, `gold`, `points`, `level`, `rank`, `exp` FROM `in_game_data` WHERE `uid` = ?",
          [uid]

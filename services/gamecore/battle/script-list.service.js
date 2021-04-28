@@ -8,9 +8,7 @@ scripts[FN_NAMES.MOVE_DAMAGE] = async function (params) {
     if (!params.hited || !params.canDoMove) {
         return;
     };
-    return await Promise.all([
-        discontHealth(params.monsterId, params.damage)
-    ]);
+    return await discontHealth(params.monsterId, params.damage);
 };
 
 // Apply buff/debuff

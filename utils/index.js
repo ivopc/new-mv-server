@@ -67,7 +67,14 @@ const filterMonsterData = monsterData => {
 const filterMonsterList = monsterList => monsterList.map(filterMonsterData);
 
 module.exports = { 
-    promiseWaterfall, mathRandomBetween, randomString, comparePasswordHash, 
-    cryptPassword, booleanToInt, validateEmail, 
-    isObjectEmpty, filterMonsterData, filterMonsterList
+    promiseWaterfall, 
+    mathRandomBetween, 
+    randomString, 
+    comparePasswordHash, 
+    cryptPassword, 
+    booleanToInt, 
+    validateEmail, 
+    isObjectEmpty, 
+    filterMonsterData, 
+    filterMonsterList
 };

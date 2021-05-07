@@ -1,4 +1,4 @@
-const socketEmitGamecoreEventRegister = require("./socket-event-register");
+const socketEmitGamecoreEventRegister = require("./socket-emit-gamecore-event-register");
 
 class SocketListener {
 
@@ -6,15 +6,15 @@ class SocketListener {
         socketEmitGamecoreEventRegister(socket);
     }
 
-    static async auth (input) {}
+    static auth (req, next) {}
 
-    static async emit (input) {}
+    static emit (req, next) {}
 
-    static async subscribe (input) {}
+    static subscribe (req, next) {}
 
-    static async publishIn (input) {}
+    static publishIn (req, next) {}
 
-    static async publishOut (input) {}
+    static publishOut (req, next) {}
 };
 
 module.exports = SocketListener;

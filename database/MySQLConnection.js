@@ -6,7 +6,7 @@ class Connection {
         this.mysqlConn = mysql.createPool(config.mysql);
     }
 
-    async getConn () {
+    getConn () {
         return new Promise((resolve, reject) => 
             this.mysqlConn.getConnection((err, conn) => {
                 if (err)

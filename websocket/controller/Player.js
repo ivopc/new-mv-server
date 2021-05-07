@@ -5,7 +5,17 @@ class Player extends AbstractController {
 
     disconnect () {}
 
-    ping () {}
+    pong (_, response) {
+        response(null, true);
+    }
+
+    setSkin (data, response) {}
+
+    getSelfProfile () {}
+
+    getRemoteProfile () {}
+
+    getPlayerData () {}
 
     async getMonsters (input, response) {
         let monsters;
@@ -20,25 +30,15 @@ class Player extends AbstractController {
         response(null, monsters);
     }
 
-    getItem () {}
-
-    changeSkin (input) {}
-
-    getSelfPlayerData () {}
-
-    getSelfProfile () {}
-
-    getRemoteProfile () {}
-
     registerEvents () {
         this.connect();
         this.socket
-            .addEvent(EVENTS.PING, () => this.ping())
-            .addEvent(EVENTS.CHANGE_SKIN, (input, response) => this.changeSkin(input))
-            .addEvent(EVENTS.REQUEST_SELF_PROFILE_DATA, (_, response) => this.getSelfProfile())
-            .addEvent(EVENTS.REQUEST_PROFILE_DATA, (input, response) => this.getRemoteProfile(input))
+            .addEvent(EVENTS.PING, (input, response) => this.pong(response))
+            .addEvent(EVENTS.CHANGE_SKIN, (input, response) => this.setSkin(input, response))
+            .addEvent(EVENTS.REQUEST_SELF_PROFILE_DATA, (input, response) => this.getSelfProfile(input, response))
+            .addEvent(EVENTS.REQUEST_PROFILE_DATA, (input, response) => this.getRemoteProfile(input, response))
             .addEvent(EVENTS.GET_MONSTERS, (input, response) => this.getMonsters(input, response))
-            .addEvent(EVENTS.GET_PLAYER_DATA, (_, response) => this.getSelfPlayerData(_, response))
+            .addEvent(EVENTS.GET_PLAYER_DATA, (input, response) => this.getPlayerData(input, response))
             .addEvent(EVENTS.DISCONNECT, () => this.disconnect());
     }
 };

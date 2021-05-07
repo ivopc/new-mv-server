@@ -27,12 +27,10 @@ class Script {
     }
 
     codeParser (scripts) {
-        this.fnList = scripts.map(script => this.rawCodeParser(script));
-    }
-
-    rawCodeParser (script) {
-        const params = treatParams[script.fnName](script);
-        return async () => await this.callFn(script.fnName, params);
+        this.fnList = scripts.map(script => {
+            const params = treatParams[script.fnName](script);
+            return async () => await this.callFn(script.fnName, params);
+        });
     }
 
     async exec () {

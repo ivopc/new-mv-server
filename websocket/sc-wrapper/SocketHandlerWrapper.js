@@ -12,8 +12,9 @@ class SocketHandlerWrapper {
     addEvent (event, fn) {
         this.socket.on(event, fn);
         // arrumar isso depois, até buguei aki pq to com muito sono
-        this.socket.on(event, (input, response) => 
-            fn(input, this.eventResponse(response))
+        this.socket.on(
+        	event, 
+        	(input, response) => fn(input, this.eventResponse(response))
         );
         return this;
     }

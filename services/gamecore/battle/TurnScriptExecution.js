@@ -2,7 +2,7 @@ const { FN_NAMES } = require("../../../constants/Battle");
 
 const { promiseWaterfall } = require("../../../utils");
 
-const scriptList = require("./script-list.service");
+const turnScriptList = require("./turn-script-list.service");
 
 const treatParams = {
     [FN_NAMES.MOVE_DAMAGE]: script => ({
@@ -16,9 +16,7 @@ const treatParams = {
     })
 };
 
-class Script {
-
-    fns = scriptList;
+class TurnScriptExecution {
 
     constructor (battleId, uid) {
         this.fnList = [];
@@ -38,8 +36,8 @@ class Script {
     }
 
     callFn (name, params) {
-        return this.fns[name].bind(this)(params);
+        return turnScriptList[name].bind(this)(params);
     }
 };
 
-module.exports = Script;
+module.exports = TurnScriptExecution;

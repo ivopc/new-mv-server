@@ -24,7 +24,7 @@ function main(socket) {
         userId = socketWrapper.getAuth()["userid"];
     [
         Player, // v
-        CharacterMove, // x
+        Character, // v
         Flag,
         Chat,
         Monster, // x

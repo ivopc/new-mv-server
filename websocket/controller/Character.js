@@ -1,7 +1,7 @@
 const AbstractController = require("./AbstractController");
 
-class CharacterMove extends AbstractController {
+class Character extends AbstractController {
     registerEvents () {}
 };
 
-module.exports = CharacterMove;
+module.exports = Character;

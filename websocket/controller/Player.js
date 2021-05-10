@@ -33,13 +33,13 @@ class Player extends AbstractController {
     registerEvents () {
         this.connect();
         this.socket
-            .addEvent(EVENTS.PING, (input, response) => this.pong(response))
-            .addEvent(EVENTS.CHANGE_SKIN, (input, response) => this.setSkin(input, response))
-            .addEvent(EVENTS.REQUEST_SELF_PROFILE_DATA, (input, response) => this.getSelfProfile(input, response))
-            .addEvent(EVENTS.REQUEST_PROFILE_DATA, (input, response) => this.getRemoteProfile(input, response))
-            .addEvent(EVENTS.GET_MONSTERS, (input, response) => this.getMonsters(input, response))
-            .addEvent(EVENTS.GET_PLAYER_DATA, (input, response) => this.getPlayerData(input, response))
-            .addEvent(EVENTS.DISCONNECT, () => this.disconnect());
+            .addEvent(EVENTS.PING, this.pong)
+            .addEvent(EVENTS.CHANGE_SKIN, this.setSkin)
+            .addEvent(EVENTS.REQUEST_SELF_PROFILE_DATA, this.getSelfProfile)
+            .addEvent(EVENTS.REQUEST_PROFILE_DATA, this.getRemoteProfile)
+            .addEvent(EVENTS.GET_MONSTERS, this.getMonsters)
+            .addEvent(EVENTS.GET_PLAYER_DATA, this.getPlayerData)
+            .addEvent(EVENTS.DISCONNECT, this.disconnect);
     }
 };
 

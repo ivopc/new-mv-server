@@ -10,8 +10,14 @@ class SocketHandlerWrapper {
     }
 
     addEvent (event, fn) {
-        this.socket.on(event, fn);
+        this.socket.on(event, async input =>
+            fn(input, await this.eventResponse(event))
+        );
         return this;
+    }
+
+    async eventResponse (event) {
+        return new Promise(resolve => this.socket.once(`${event}_`, resolve));
     }
 
     getAuth () {

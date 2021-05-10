@@ -6,7 +6,7 @@ class Level extends AbstractController {
 
     registerEvents () {
         this.socket
-            .addEvent(EVENTS.CHANGE_LEVEL, (input, response) => this.change(input, response));
+            .addEvent(EVENTS.CHANGE_LEVEL, this.change);
     }
 };
 

@@ -6,7 +6,7 @@ class Bag extends AbstractController {
 
     registerEvents () {
     	this.socket
-    		.addEvent(EVENTS.USE_ITEM, (input, response) => this.useItem(input, response));
+    		.addEvent(EVENTS.USE_ITEM, this.useItem);
     }
 };
 

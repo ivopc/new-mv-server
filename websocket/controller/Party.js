@@ -6,7 +6,7 @@ class Party extends AbstractController {
 
     registerEvents () {
         this.socket
-            .addEvent(EVENTS.CHANGE_PARTY_POSITION, input => this.changePosition(input));
+            .addEvent(EVENTS.CHANGE_PARTY_POSITION, this.changePosition);
     }
 };
 

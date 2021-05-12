@@ -8,9 +8,9 @@ const router = express.Router();
 
 router
     .use(controller.isConnected)
-    // .post("/profile", controller.selfProfile)
-    // .post("/profile/:nickname", controller.profile)
-    // .post("/premium", controller.premium)
-    // .post("/config", controller.config);
+    /*.post("/profile", controller.selfProfile)
+    .post("/profile/:nickname", controller.profile)
+    .post("/premium", controller.premium)
+    .post("/config", controller.config);*/
 
 module.exports = router;

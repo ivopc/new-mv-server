@@ -9,8 +9,6 @@ class Player extends AbstractController {
         response(null, true);
     }
 
-    setSkin (data, response) {}
-
     getSelfProfile () {}
 
     getRemoteProfile () {}

@@ -1,4 +1,5 @@
 const BATTLE_TYPES = {
+    NONE: 0,
 	WILD: 1,
 	TAMER: 2,
 	PVP: 3

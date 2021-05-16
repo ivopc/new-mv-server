@@ -175,7 +175,7 @@ const parseChallengerAction = (input, activeMonsters, challengerMonsters, buffsD
 };
 
 const chooseOpponentAction = opponentMonster => {
-    let choose = false, move;
+    let choose, move;
     while (!choose) {
         move = opponentMonster["move_" + Math.floor(Math.random() * 4)];
         if (move in Resources.Moves)

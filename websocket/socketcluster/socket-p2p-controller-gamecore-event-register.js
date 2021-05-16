@@ -7,16 +7,17 @@ const
     Level = require("./p2p-controller/Level");
 
 function main(req, next) {
-	[
-		Battle,
-		Character,
-		Chat,
-		Level,
-		Player
-	].forEach(P2PSocketController => {
+    P2PListener.checkEvent(req.channel);
+    [
+        Battle,
+        Character,
+        Chat,
+        Level,
+        Player
+    ].forEach(P2PSocketController => {
         const p2pController = new P2PSocketController(p2pSocketWrapper, userId);
         p2pController.checkEvent(req.channel);
-	});
+    });
 };
 
 module.exports = main;

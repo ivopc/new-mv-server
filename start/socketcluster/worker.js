@@ -33,6 +33,6 @@ class Worker extends SCWorker {
         // Control socket emission
         scServer.addMiddleware(scServer.MIDDLEWARE_EMIT, SocketListener.emit);
     }
-}
+};
 
 new Worker();

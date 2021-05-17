@@ -14,8 +14,8 @@ const insertGameData = async userId => {
 
 const getGameData = async userId => {
     const [ gameData ] = await QueryExecutor.query(
-        "SELECT `silver`, `gold`, `points`, `level`, `rank`, `exp` FROM `in_game_data` WHERE `uid` = ?",
-         [uid]
+        "SELECT `silver`, `gold`, `points`, `level`, `rank`, `exp` FROM `in_game_data` WHERE `user_id` = ?",
+         [userId]
     );
     return gameData;
 };

@@ -1,5 +1,7 @@
 const AbstractController = require("./AbstractController");
 
+const { EVENTS } = require("../../constants/GameNetwork");
+
 class Wild extends AbstractController {
 
     search (input, response) {}

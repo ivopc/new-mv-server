@@ -1,4 +1,4 @@
-const { FN_NAMES, STATUS_PROBLEM, ACTIONS } = require("../../../constants/Battle");
+const { FN_NAMES, STATUS_PROBLEM, ACTIONS, MOVES_MAX_LENGTH } = require("../../../constants/Battle");
 
 const Resources = {
     Moves: require("../../../database/game/newmoves"),
@@ -15,32 +15,32 @@ const {
 const { treatBuffDebuff } = require("./formula.service");
 
 const handleAction = (input, battleData) => {
-	// register all turn steps to send to script to run in database
-	// and send to client
-	const turns = {
-		pre: [],
-		regular: [],
-		post: []
-	};
-	// active monsters in battle
-	const activeMonsters = {
-		challenger: battleData.playerMonsters.getFirstAlive(),
-		opponent: battleData.wildMonster
-	};
-	// challenger and opponent actions
-	const action = {
-		challenger: null,
-		opponent: null
-	};
-	// treat buffs and debuffs in battle
-	const buffsDebuffs = treatBuffDebuff();
-	// treat challenger action
-	action.challenger = parseChallengerAction(
-		input,
-		activeMonsters,
-		battleData.playerMonsters,
-		buffsDebuffs
-	);
+    // register all turn steps to send to script to run in database
+    // and send to client
+    const turns = {
+        pre: [],
+        regular: [],
+        post: []
+    };
+    // active monsters in battle
+    const activeMonsters = {
+        challenger: battleData.playerMonsters.getFirstAlive(),
+        opponent: battleData.wildMonster
+    };
+    // challenger and opponent actions
+    const action = {
+        challenger: null,
+        opponent: null
+    };
+    // treat buffs and debuffs in battle
+    const buffsDebuffs = treatBuffDebuff();
+    // treat challenger action
+    action.challenger = parseChallengerAction(
+        input,
+        activeMonsters,
+        battleData.playerMonsters,
+        buffsDebuffs
+    );
     action.challenger.id = "challenger";
     action.challenger.target = {
         id: activeMonsters.opponent.id,
@@ -50,7 +50,7 @@ const handleAction = (input, battleData) => {
     if (activeMonsters.challenger.status_problem > 0)
         handleStatusProblem(activeMonsters.challenger, action.challenger, turns);
     // choose opponent action
-	action.opponent = chooseOpponentAction(activeMonsters.opponent);
+    action.opponent = chooseOpponentAction(activeMonsters.opponent);
     // parse opponent action
     action.opponent = parseOpponentAction(
         action.opponent,
@@ -175,15 +175,14 @@ const parseChallengerAction = (input, activeMonsters, challengerMonsters, buffsD
 };
 
 const chooseOpponentAction = opponentMonster => {
-    let choose, move;
-    while (!choose) {
-        move = opponentMonster["move_" + Math.floor(Math.random() * 4)];
-        if (move in Resources.Moves)
-            choose = true;
-    };
+    const moves = [];
+    for (let i = 0; i < MOVES_MAX_LENGTH; i ++)
+        if (opponentMonster[`move_${i}`] > 0)
+            moves.push(opponentMonster[`move_${i}`]);
+    const moveId = moves[Math.floor(Math.random() * moves.length)];
     return {
         action: ACTIONS.MOVE,
-        param: Resources.Moves[move]
+        param: Resources.Moves[moveId]
     };
 };
 

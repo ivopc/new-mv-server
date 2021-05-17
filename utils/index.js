@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const mysql = require("mysql");
 
 const promiseWaterfall = callbacks =>
     callbacks.reduce((accumulator, callback) => 
@@ -66,6 +67,8 @@ const filterMonsterData = monsterData => {
 
 const filterMonsterList = monsterList => monsterList.map(filterMonsterData);
 
+const sanatizeQuery = str => mysql.escape(str);
+
 module.exports = { 
     promiseWaterfall, 
     mathRandomBetween, 
@@ -76,5 +79,6 @@ module.exports = {
     validateEmail, 
     isObjectEmpty, 
     filterMonsterData, 
-    filterMonsterList
+    filterMonsterList,
+    sanatizeQuery
 };

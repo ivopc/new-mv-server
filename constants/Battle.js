@@ -36,10 +36,13 @@ const FN_NAMES = {
     FAINTED: 100
 };
 
+const MOVES_MAX_LENGTH = 4;
+
 module.exports = { 
     BATTLE_TYPES, 
     ACTIONS, 
     ERRORS, 
     STATUS_PROBLEM, 
-    FN_NAMES 
+    FN_NAMES,
+    MOVES_MAX_LENGTH
 };

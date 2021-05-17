@@ -1,9 +1,9 @@
 const QueryExecutor = require("../database/MySQLQueryExecutor");
 const { getMonster } = require("./monster.db");
 
-const insertMonsterParty = async uid => {
+const insertMonsterParty = async userId => {
     return await QueryExecutor.query("INSERT INTO `monsters_in_party` SET ?", {
-        uid,
+        user_id: userId,
         monster0: 0,
         monster1: 0,
         monster2: 0,
@@ -14,11 +14,11 @@ const insertMonsterParty = async uid => {
 };
 
 // get free space in party (complementar to add new monsters to player party)
-const getFreeSpaceInParty = async uid => {
+const getFreeSpaceInParty = async userId => {
     // get monsters id in the player party
     const [ monstersInParty ] = await QueryExecutor.query(
-        "SELECT `monster0`, `monster1`, `monster2`, `monster3`, `monster4`, `monster5` FROM `monsters_in_party` WHERE `uid` = ?",
-        [uid]
+        "SELECT `monster0`, `monster1`, `monster2`, `monster3`, `monster4`, `monster5` FROM `monsters_in_party` WHERE `user_id` = ?",
+        [userId]
     );
     let freeSpace;
     // iterating the monster party to find the freespace
@@ -34,11 +34,11 @@ const getFreeSpaceInParty = async uid => {
 };
 
 // get all monsters in party
-const getMonstersInParty = async uid => {
+const getMonstersInParty = async userId => {
     // get monsters id in the player party
     const [ monstersInParty ] = await QueryExecutor.query(
-        "SELECT `monster0`, `monster1`, `monster2`, `monster3`, `monster4`, `monster5` FROM `monsters_in_party` WHERE `uid` = ?",
-        [uid]
+        "SELECT `monster0`, `monster1`, `monster2`, `monster3`, `monster4`, `monster5` FROM `monsters_in_party` WHERE `user_id` = ?",
+        [userId]
     );
     // create function list to store the monster in party data getting async
     const fns = [];

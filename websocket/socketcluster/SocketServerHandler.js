@@ -17,6 +17,10 @@ class SocketServerHandler {
         this.server.exchage.publish(CHANNELS.LEVEL(levelId), data);
     }
 
+    disconnect (id) {
+        this.server.clients[id].disconnect;
+    }
+
     static ref
 };
 

@@ -19,9 +19,9 @@ const createUser = async (username, cryptedPassword, email, lang) => {
 	});
 };
 
-const fetchUserById = async id => {
-    return await QueryExecutor.query("SELECT * FROM `users` WHERE `id` = ?", [id]);
-};
+const getUserById = async id =>
+	await QueryExecutor.query("SELECT * FROM `users` WHERE `id` = ?", [id]);
+
 
 const userExists = async (username, getUserData) => {
     const exists = await QueryExecutor.query("SELECT * FROM `users` WHERE `username` = ?", [username]);
@@ -51,13 +51,11 @@ const insertCurrentDoing = async uid => {
     });
 };
 
-
-
-module.exports = { 
-	createUser, 
-	fetchUserById, 
-	userExists, 
-	emailInUse, 
+module.exports = {
+	createUser,
+	getUserById,
+	userExists,
+	emailInUse,
 	setUserBannedById, 
 	insertCurrentDoing
 };

@@ -23,7 +23,7 @@ class Worker extends SCWorker {
         SocketServerHandler.ref = new SocketServerHandler(scServer);
         scServer.on("connection", SocketListener.conn);
         // Auth websocket connection
-        scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE_WS, SocketListener.auth);
+        scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE_WS, (req, next) => SocketListener.auth(req, next));
         // Auth subscribe in channels
         scServer.addMiddleware(scServer.MIDDLEWARE_SUBSCRIBE, SocketListener.subscribe);
         // Auth publication in channels

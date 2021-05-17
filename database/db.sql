@@ -24,34 +24,34 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dados in-game dos players
 DROP TABLE IF EXISTS `in_game_data`;
 CREATE TABLE IF NOT EXISTS `in_game_data` (
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `silver` bigint(10) UNSIGNED NOT NULL DEFAULT '0',
     `gold` bigint(10) UNSIGNED NOT NULL DEFAULT '0',
     `points` bigint(10) UNSIGNED NOT NULL DEFAULT '0',
     `level` bigint(10) NOT NULL,
     `rank` tinyint(1) NOT NULL,
     `exp` bigint(10) NOT NULL,
-    PRIMARY KEY (`uid`)
+    PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- monstros que estão na party do player
 DROP TABLE IF EXISTS `monsters_in_party`;
 CREATE TABLE IF NOT EXISTS `monsters_in_party` (
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `monster0` bigint(10) NOT NULL,
     `monster1` bigint(10) NOT NULL,
     `monster2` bigint(10) NOT NULL,
     `monster3` bigint(10) NOT NULL,
     `monster4` bigint(10) NOT NULL,
     `monster5` bigint(10) NOT NULL,
-    PRIMARY KEY (`uid`)
+    PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- monstros que estão ba party do tamer (cpu)
 DROP TABLE IF EXISTS `tamer_bot_monsters_in_party`;
 CREATE TABLE IF NOT EXISTS `tamer_bot_monsters_in_party` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `tamer_id` smallint(10) NOT NULL,
     `monster0` bigint(10) NOT NULL,
     `monster1` bigint(10) NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `tamer_bot_monsters_in_party` (
 DROP TABLE IF EXISTS `monsters_in_box`;
 CREATE TABLE IF NOT EXISTS `monsters_in_box` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `slot_position` smallint(10) NOT NULL,
     `monster_id` bigint(10) NOT NULL,
     PRIMARY KEY (`id`)
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `monsters_in_box` (
 -- o que o player está fazendo atualmente
 DROP TABLE IF EXISTS `current_doing`;
 CREATE TABLE IF NOT EXISTS `current_doing` (
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     -- battle_type:
     -- 0 = nenhuma
     -- 1 = luta contra monstro selvagem (wild)
@@ -91,14 +91,14 @@ CREATE TABLE IF NOT EXISTS `current_doing` (
     `doing_battle_action` tinyint(1) NOT NULL,
     -- 0 ou 1
     `requesting_flag` tinyint(1) NOT NULL,
-    PRIMARY KEY (`uid`)
+    PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- notificações do player
 DROP TABLE IF EXISTS `notify`;
 CREATE TABLE IF NOT EXISTS `notify` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `enabled` tinyint(1) NOT NULL DEFAULT '1',
     `viewed` tinyint(1) NOT NULL DEFAULT '0',
     -- tipos: 0 = Mensagem Particular | 1 = Aprender move | 2 = Evoluir | 3 = Vendas/Negociações
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `notify` (
 DROP TABLE IF EXISTS `notify_learn_move`;
 CREATE TABLE IF NOT EXISTS `notify_learn_move` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `enabled` tinyint(1) NOT NULL DEFAULT '1',
     `used` tinyint(1) NOT NULL DEFAULT '0',
     `move_id` smallint(10) NOT NULL,
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `notify_learn_move` (
 DROP TABLE IF EXISTS `notify_evolve`;
 CREATE TABLE IF NOT EXISTS `notify_evolve` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `enabled` tinyint(1) NOT NULL DEFAULT '1',
     `used` tinyint(1) NOT NULL DEFAULT '0',
     -- monsterpedia_id do monstro para qual vai evoluir
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `notify_evolve` (
 DROP TABLE IF EXISTS `notify_marketplace`;
 CREATE TABLE IF NOT EXISTS `notify_marketplace` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `enabled` tinyint(1) NOT NULL DEFAULT '1',
     `item_or_monster` tinyint(1) NOT NULL,
     -- id do item ou monsterpedia_id do monstro que foi vendido
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `notify_marketplace` (
 DROP TABLE IF EXISTS `monsters`;
 CREATE TABLE IF NOT EXISTS `monsters` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `enabled` tinyint(1) NOT NULL DEFAULT '1',
     -- type:
     -- 0 = monstro do jogador 
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `monsters` (
     -- 3 = monstro indomável (de missão)
     `type` tinyint(1) NOT NULL DEFAULT '0',
     `nature` tinyint(1) NOT NULL DEFAULT '0',
-    `shiny` tinyint(1) NOT NULL DEFAULT '0',
+    `color_variant` tinyint(1) NOT NULL DEFAULT '0',
     `is_initial` tinyint(1) NOT NULL DEFAULT '0',
     `trade_enabled` tinyint(1) NOT NULL DEFAULT '1',
     `in_pocket` tinyint(1) NOT NULL DEFAULT '0',
@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `monsters` (
 DROP TABLE IF EXISTS `items`;
 CREATE TABLE IF NOT EXISTS `items` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `item_id` int(10) NOT NULL,
     `amount` int(10) NOT NULL,
     PRIMARY KEY (`id`)
@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `battle` (
     `enabled` tinyint(1) NOT NULL,
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     -- se for PvP = inviter
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     -- 1 = wild | 2 = domador | 3 = PvP | 4 = monstro indomável
     `battle_type` tinyint(1) NOT NULL,
     `field_category` tinyint(1) NOT NULL,
@@ -259,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `battle_exp_share` (
     -- id
     `id` bigint(10) NOT NULL AUTO_INCREMENT,
     -- user id
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     -- id da batalha
     `battle_id` bigint(10) NOT NULL,
     -- monstro que está compartilhando o EXP
@@ -271,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `battle_exp_share` (
 DROP TABLE IF EXISTS `flags`;
 CREATE TABLE IF NOT EXISTS `flags` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `type` varchar(2) NOT NULL,
     `flag_id` varchar(10) NOT NULL,
     `value` tinyint(1) NOT NULL,
@@ -282,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `flags` (
 DROP TABLE IF EXISTS `quests`;
 CREATE TABLE IF NOT EXISTS `quests` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `quest_id` int(10) NOT NULL,
     `completed` tinyint(1) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`)
@@ -292,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `quests` (
 DROP TABLE IF EXISTS `quest_action`;
 CREATE TABLE IF NOT EXISTS `quest_action` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `quest_id` int(10) NOT NULL,
     -- 1 = defeat | 2 = tame | 3 = drop
     `action_type` tinyint(1) NOT NULL,
@@ -306,7 +306,7 @@ DROP TABLE IF EXISTS `marketplace`;
 CREATE TABLE IF NOT EXISTS `marketplace` (
     `enabled` tinyint(1) NOT NULL,
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
 
     -- Qual o ID do item/monstro que está vendendo?
     `sale_id` bigint(10) NOT NULL,
@@ -344,7 +344,7 @@ CREATE TABLE IF NOT EXISTS `marketplace` (
 DROP TABLE IF EXISTS `freeze_items_monsters`;
 CREATE TABLE IF NOT EXISTS `freeze_items_monsters` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
 
     -- Qual o ID do item/monstro que está vendendo?
     `sale_id` bigint(10) NOT NULL,
@@ -373,7 +373,7 @@ CREATE TABLE IF NOT EXISTS `pvp_invites` (
 DROP TABLE IF EXISTS `security_tokens`;
 CREATE TABLE IF NOT EXISTS `security_tokens` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `active` tinyint(1) NOT NULL,
     `token` varchar(150) NOT NULL,
     `last_activity` varchar(13) NOT NULL,
@@ -384,7 +384,7 @@ CREATE TABLE IF NOT EXISTS `security_tokens` (
 DROP TABLE IF EXISTS `online_offline_flag`;
 CREATE TABLE IF NOT EXISTS `online_offline_flag` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `sckt_id` varchar(25) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -393,7 +393,7 @@ CREATE TABLE IF NOT EXISTS `online_offline_flag` (
 DROP TABLE IF EXISTS `picpay_payment`;
 CREATE TABLE IF NOT EXISTS `picpay_payment` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `uid` bigint(10) NOT NULL,
+    `user_id` bigint(10) NOT NULL,
     `product_id` tinyint(1) NOT NULL,
     `ref` char(10) NOT NULL,
     `value`varchar(100) NOT NULL,

@@ -1,5 +1,7 @@
 const AbstractController = require("./AbstractController");
 
+const { EVENTS } = require("../../constants/GameNetwork");
+
 class Quest extends AbstractController {
 
     start (input, response) {}

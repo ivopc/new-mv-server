@@ -2,9 +2,11 @@ const url = require("url");
 
 const { auth } = require("./../auth/conn-boot");
 
+const fwFolderConfig = require("./../../frameworkConfig");
+
 const 
     socketControllerGamecoreEventRegister = require("./../socket-controller-gamecore-event-register"),
-    socketP2PControllerGamecoreEventRegister = require("./../socket-p2p-controller-gamecore-event-register");
+    socketP2PControllerGamecoreEventRegister = require(`../${fwFolderConfig}/socket-p2p-controller-gamecore-event-register`);
 
 class SocketListener {
 

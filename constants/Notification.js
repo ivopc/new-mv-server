@@ -1,0 +1,3 @@
+const NOTIFICATION_PER_PAGE = 4;
+
+module.exports = { NOTIFICATION_PER_PAGE };

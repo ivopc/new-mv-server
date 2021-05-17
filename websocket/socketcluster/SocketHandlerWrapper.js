@@ -17,6 +17,10 @@ class SocketHandlerWrapper {
     getAuth () {
         return url.parse(this.socket.request.url, true).query;
     }
+
+    get id () {
+        return this.socket.id;
+    }
 };
 
 module.exports = SocketHandlerWrapper;

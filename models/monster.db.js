@@ -6,9 +6,9 @@ const Resources = {
     Formulas: require("../formulas")
 };
 
-const insertMonster = async (uid, monsterData) => {
+const insertMonster = async (userId, monsterData) => {
     monsterData.id = null;
-    monsterData.uid = uid;
+    monsterData.user_id = userId;
     monsterData.enabled = booleanToInt(true);
     monsterData.type = monsterData.type || 0;
     monsterData.shiny = booleanToInt(false);
@@ -88,10 +88,10 @@ const disableMonster = async id => {
     );
 };
 
-const getAliveWildMonster = async uid => {
+const getAliveWildMonster = async userId => {
     const [ wild ] = await QueryExecutor.query(
-        "SELECT * FROM `monsters` WHERE `type` = '1' AND `uid` = ? AND `enabled` = '1'",
-        [uid]
+        "SELECT * FROM `monsters` WHERE `type` = '1' AND `user_id` = ? AND `enabled` = '1'",
+        [userId]
     );
     return wild;
 };

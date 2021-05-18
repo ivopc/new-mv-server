@@ -13,7 +13,7 @@ const insertMonsterParty = async userId => {
     });
 };
 
-// get free space in party (complementar to add new monsters to player party)
+// get free space in party (complement to add new monsters to player party)
 const getFreeSpaceInParty = async userId => {
     // get monsters id in the player party
     const [ monstersInParty ] = await QueryExecutor.query(
@@ -57,4 +57,8 @@ const getMonstersInParty = async userId => {
     return monsterList.filter(el => !!el);
 };
 
-module.exports = { insertMonsterParty, getFreeSpaceInParty, getMonstersInParty };
+module.exports = {
+    insertMonsterParty,
+    getFreeSpaceInParty, 
+    getMonstersInParty 
+};

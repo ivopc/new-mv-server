@@ -7,7 +7,9 @@ const canConnect = async (userId, token) => {
         "SELECT `active` FROM `security_tokens` WHERE `user_id` = ? AND token = ?",
         [userId, token]
     );
-    return canEnter.length > 0 ? !!canEnter.active : false;
+    if (!canEnter)
+    	return false;
+    return !!canEnter.active;
 };
 
 

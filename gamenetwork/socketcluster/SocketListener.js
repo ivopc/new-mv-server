@@ -35,7 +35,7 @@ class SocketListener {
     static subscribe (req, next) {}
 
     static publishIn (req, next) {
-        socketP2PControllerGamecoreEventRegister(req, next);
+        //socketP2PControllerGamecoreEventRegister(req, next);
     }
 
     static publishOut (req, next) {}

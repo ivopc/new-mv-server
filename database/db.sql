@@ -95,22 +95,22 @@ CREATE TABLE IF NOT EXISTS `current_doing` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- notificações do player
-DROP TABLE IF EXISTS `notify`;
-CREATE TABLE IF NOT EXISTS `notify` (
+DROP TABLE IF EXISTS `notification`;
+CREATE TABLE IF NOT EXISTS `notification` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     `user_id` bigint(10) NOT NULL,
     `enabled` tinyint(1) NOT NULL DEFAULT '1',
     `viewed` tinyint(1) NOT NULL DEFAULT '0',
     -- tipos: 0 = Mensagem Particular | 1 = Aprender move | 2 = Evoluir | 3 = Vendas/Negociações
     `type` tinyint(1) NOT NULL,
-    -- notification ID = id de uma das tabelas "notify_learn_move", "notify_evolve"
+    -- notification ID = id de uma das tabelas "notification_learn_move", "notification_evolve"
     `n_id` bigint(10) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- notificação de ensinar move
-DROP TABLE IF EXISTS `notify_learn_move`;
-CREATE TABLE IF NOT EXISTS `notify_learn_move` (
+DROP TABLE IF EXISTS `notification_learn_move`;
+CREATE TABLE IF NOT EXISTS `notification_learn_move` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     `user_id` bigint(10) NOT NULL,
     `enabled` tinyint(1) NOT NULL DEFAULT '1',
@@ -121,8 +121,8 @@ CREATE TABLE IF NOT EXISTS `notify_learn_move` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- notificação de evoluir
-DROP TABLE IF EXISTS `notify_evolve`;
-CREATE TABLE IF NOT EXISTS `notify_evolve` (
+DROP TABLE IF EXISTS `notification_evolve`;
+CREATE TABLE IF NOT EXISTS `notification_evolve` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     `user_id` bigint(10) NOT NULL,
     `enabled` tinyint(1) NOT NULL DEFAULT '1',
@@ -134,8 +134,8 @@ CREATE TABLE IF NOT EXISTS `notify_evolve` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- notificação de trocas/negócios
-DROP TABLE IF EXISTS `notify_marketplace`;
-CREATE TABLE IF NOT EXISTS `notify_marketplace` (
+DROP TABLE IF EXISTS `notification_marketplace`;
+CREATE TABLE IF NOT EXISTS `notification_marketplace` (
     `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     `user_id` bigint(10) NOT NULL,
     `enabled` tinyint(1) NOT NULL DEFAULT '1',

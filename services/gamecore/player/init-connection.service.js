@@ -6,12 +6,16 @@ const { getCurrentDoing } = require("../../../models/current-doing.db");
 const { getAllItems } = require("../../../models/items.db");
 const { getNotifications } = require("../../../models/notification.db");
 const { getActiveTamersInLevel } = require("../level/tamer.service");
+const CharacterCrud = require("../../../database/RethinkDBCharacterCrud");
 
 const { BATTLE_TYPES } = require("../../../constants/Battle");
 const { STATES } = require("../../../constants/GameStates");
 
 const alreadyConnected = async userId => 
     await checkifPlayerIsAlreadyConnected(userId);
+
+const setPlayerOnline = async (userId, isOnline) =>
+    CharacterCrud.update(userId, {online: isOnline});
 
 const playerConnect = async (userId, socketId) => {
     await setPlayerOnline(userId, true);
@@ -36,9 +40,9 @@ const playerConnect = async (userId, socketId) => {
 const prepareInitialData = async userId => {
     const rawInitialData = await getInitialPlayerData(userId);
     switch (rawInitialData.battle_type) {
-        case BATTLE_TYPES.WILD: {break;};
-        case BATTLE_TYPES.TAMER: {break;};
-        case BATTLE_TYPES.PVP: {break;};
+        case BATTLE_TYPES.WILD: {return;};
+        case BATTLE_TYPES.TAMER: {return;};
+        case BATTLE_TYPES.PVP: {return;};
     };
     return {
         state: STATES.OVERWORLD,

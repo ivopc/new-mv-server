@@ -5,6 +5,7 @@ const { NOTIFICATION_PER_PAGE } = require("../constants/Notification");
 const { sanatizeQuery } = require("../utils");
 
 const getNotifications = async (userId, input) => {
+    input = input || {};
     let { page } = input;
     page = page || 1;
     const startingLimit = (page - 1) * NOTIFICATION_PER_PAGE;

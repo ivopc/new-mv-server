@@ -1,0 +1,21 @@
+{
+    "id": 3,
+    "hasTamers": true,
+    "incomingteleport": {
+        "98": {
+            "x": 11,
+            "y": 3,
+            "facing": 2
+        },
+        "100": {
+            "x": 37,
+            "y": 55,
+            "facing": 3
+        }
+    },
+    "tamers": [
+        {"id": 2}
+    ],
+    "tiles": [],
+    "healingplace": 1
+}

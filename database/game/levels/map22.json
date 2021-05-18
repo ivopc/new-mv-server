@@ -1,0 +1,11 @@
+{
+    "id": 2,
+    "incomingteleport": {
+        "99": {
+            "x": 15,
+            "y": 27,
+            "facing": 0
+        }
+    },
+    "tiles": []
+}

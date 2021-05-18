@@ -11,7 +11,6 @@ const {
 
 const { EVENTS } = require("../../constants/GameNetwork");
 
-
 class Player extends AbstractController {
     async connect () {
         const { isAlreadyConnected } = await playerConnect(this.userId);

@@ -40,9 +40,9 @@ const setUserBannedById = async (id, isBanned) => {
 	return await QueryExecutor.query(`UPDATE \`users\` SET \`ban\` = '${ban}' WHERE \`id\` = ?`, [id]);
 };
 
-const insertCurrentDoing = async uid => {
+const insertCurrentDoing = async userId => {
 	return await QueryExecutor.query("INSERT INTO `current_doing` SET ?", {
-        uid,
+        user_id: userId,
         battle_type: 0,
         if_is_pvp_battle_id: 0,
         waiting_wild_battle: 0,

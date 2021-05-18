@@ -3,4 +3,4 @@ const FLAG_TYPES = {
 	TAMER: "t"
 };
 
-module.exports = FLAG_TYPES;
+module.exports = { FLAG_TYPES };

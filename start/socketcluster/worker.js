@@ -6,8 +6,8 @@ const
 const app = require("./../../http-app");
 
 const 
-    SocketServerHandler = require("./../../websocket/socketcluster/SocketServerHandler"),
-    SocketListener = require("./../../websocket/socketcluster/SocketListener");
+    SocketServerHandler = require("./../../gamenetwork/socketcluster/SocketServerHandler"),
+    SocketListener = require("./../../gamenetwork/socketcluster/SocketListener");
 
 class Worker extends SCWorker {
     run() {

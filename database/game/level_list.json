@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "name": "city"
+    },
+    {
+        "id": 2,
+        "name": "map22"
+    },
+    {
+        "id": 3,
+        "name": "map3"
+    },
+    {
+        "id": 4,
+        "name": "indoors"
+    },
+    {
+        "id": 5,
+        "name": "sotopus_connection"
+    },
+    {
+        "id": 6,
+        "name": "sotopus"
+    },
+    {
+        "id": 7,
+        "name": "player_room_house"
+    }
+]

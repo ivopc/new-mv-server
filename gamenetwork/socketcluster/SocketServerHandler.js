@@ -18,7 +18,7 @@ class SocketServerHandler {
     }
 
     disconnect (id) {
-        this.server.clients[id].disconnect;
+        this.server.clients[id].disconnect();
     }
 
     static ref

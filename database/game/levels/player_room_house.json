@@ -1,0 +1,12 @@
+{
+    "id": 7,
+    "hasTamers": false,
+    "incomingteleport": {
+        "1": {
+            "x": 4,
+            "y": 2,
+            "facing": 2
+        }
+    },
+    "tiles": []
+}

@@ -1,0 +1,31 @@
+{
+    "id": 1,
+    "hasTamers": true,
+    "incomingteleport": {
+        "1": {
+            "x": 15,
+            "y": 3,
+            "facing": 2
+        },
+        "2": {
+            "x": 15,
+            "y": 27,
+            "facing": 0
+        },
+        "3": {
+            "x": 8,
+            "y": 9,
+            "facing": 2
+        }
+    },
+    "tiles": [],
+    "tamers": [
+        {"id": 1}
+    ],
+    "healingplace": 1,
+    "healingplaceposition": {
+        "x": 9,
+        "y": 12,
+        "facing": 0
+    }
+}

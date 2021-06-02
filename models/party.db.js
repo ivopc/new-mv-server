@@ -1,5 +1,6 @@
 const QueryExecutor = require("../database/MySQLQueryExecutor");
 const { getMonster } = require("./monster.db");
+const { escapeSQLQuery } = require("../utils");
 
 const insertMonsterParty = async userId => {
     return await QueryExecutor.query("INSERT INTO `monsters_in_party` SET ?", {
@@ -57,8 +58,16 @@ const getMonstersInParty = async userId => {
     return monsterList.filter(el => !!el);
 };
 
+const setMonsterToPosition = async (userId, monsterId, position) => {
+    return await QueryExecutor.query(
+        `UPDATE \`monsters_in_party\` SET \`monster${escapeSQLQuery(position)} = ? WHERE \`user_id\` = ?`,
+        [monsterId, userId]
+    );
+};
+
 module.exports = {
     insertMonsterParty,
     getFreeSpaceInParty, 
-    getMonstersInParty 
+    getMonstersInParty,
+    setMonsterToPosition
 };

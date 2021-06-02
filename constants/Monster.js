@@ -5,4 +5,6 @@ const MONSTER_TYPE = {
 	MISSION: 3
 };
 
-module.exports = { MONSTER_TYPE };
+const VITA_INCREASE = 10;
+
+module.exports = { MONSTER_TYPE, VITA_INCREASE };

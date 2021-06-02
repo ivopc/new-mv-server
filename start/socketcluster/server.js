@@ -68,7 +68,7 @@ var start = function () {
     console.log('   >> WorkerCluster PID:', workerClusterInfo.pid);
   });
 
-  if (socketCluster.options.environment === 'dev') {
+  /*if (socketCluster.options.environment === 'dev') {
     // This will cause SC workers to reboot when code changes anywhere in the app directory.
     // The second options argument here is passed directly to chokidar.
     // See https://github.com/paulmillr/chokidar#api for details.
@@ -77,7 +77,7 @@ var start = function () {
       cwd: "./../",
       ignored: ['./../public', './../node_modules', './../README.md', './../Dockerfile', 'server.js', 'broker.js', /[\/\\]\./, '*.log']
     });
-  }
+  }*/
 };
 
 var bootCheckInterval = Number(process.env.SOCKETCLUSTER_BOOT_CHECK_INTERVAL) || 200;

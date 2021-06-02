@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `monsters` (
     `color_variant` tinyint(1) NOT NULL DEFAULT '0',
     `is_initial` tinyint(1) NOT NULL DEFAULT '0',
     `trade_enabled` tinyint(1) NOT NULL DEFAULT '1',
-    `in_pocket` tinyint(1) NOT NULL DEFAULT '0',
+    `in_party` tinyint(1) NOT NULL DEFAULT '0',
     `monsterpedia_id` int(10) NOT NULL,
     `nickname` varchar(9) DEFAULT NULL,
     `level` tinyint(1) NOT NULL,

@@ -1,12 +1,12 @@
-const { booleanToInt } = require("../utils");
 const QueryExecutor = require("../database/MySQLQueryExecutor");
+const { booleanToInt, escapeSQLQuery } = require("../utils");
 
 const Resources = {
     Dex: require("../database/game/dex.json"),
     Formulas: require("../formulas")
 };
 
-const insertMonster = async (userId, monsterData) => {
+const insertMonster = async (userId, monsterData = {}) => {
     monsterData.id = null;
     monsterData.user_id = userId;
     monsterData.enabled = booleanToInt(true);
@@ -14,7 +14,7 @@ const insertMonster = async (userId, monsterData) => {
     monsterData.shiny = booleanToInt(false);
     monsterData.is_initial = booleanToInt(monsterData.is_initial) || booleanToInt(false);
     monsterData.trade_enabled = "trade_enabled" in monsterData ? booleanToInt(monsterData.trade_enabled) : booleanToInt(true);
-    monsterData.in_pocket = booleanToInt(monsterData.in_pocket) || booleanToInt(false);
+    monsterData.in_party = booleanToInt(monsterData.in_party) || booleanToInt(false);
     monsterData.level = monsterData.level || 0;
     monsterData.experience = Resources.Formulas.Exp.Calc.level2Exp(monsterData.level);
     monsterData.gender = monsterData.gender || Resources.Formulas.Monster.Generate.Gender(monsterData.monsterpedia_id);
@@ -45,7 +45,7 @@ const insertMonster = async (userId, monsterData) => {
             spe: 0
         },
         level: monsterData.level,
-        baseStats: Resources.Dex[monsterData.monsterpedia_id]["baseStats"]
+        baseStats: Resources.Dex[monsterData.monsterpedia_id].baseStats
     });
     monsterData.status_problem = 0;
     monsterData.current_HP = stats.hp;
@@ -81,6 +81,14 @@ const getMonster = async id => {
     return monster;
 };
 
+const isMonsterFromPlayer = async (monsterId, userId) => {
+    const isFrom = await QueryExecutor.query(
+        "SELECT `id` FROM `monsters` WHERE `id` = ? and `user_id` = ?",
+        [monsterId, userId]
+    );
+    return isFrom.length > 0;
+};
+
 const disableMonster = async id => {
     return await QueryExecutor.query(
         "UPDATE `monsters` SET `enabled` = '0' WHERE `enabled` = '1' AND `id` = ?",
@@ -105,11 +113,20 @@ const discontHealth = async (id, damage) => {
 
 const discontMana = async () => {};
 
+const setMove = async (monsterId, moveId, slotPosition) => {
+    return await QueryExecutor.query(
+        `UPDATE \`monsters\` SET \`move_${escapeSQLQuery(slotPosition)}\` = ? WHERE \`id\` = ?`,
+        [moveId, monsterId]
+    );
+};
+
 module.exports = {
     insertMonster,
     getMonster,
     disableMonster,
+    isMonsterFromPlayer,
     getAliveWildMonster,
     discontHealth,
-    discontMana
+    discontMana,
+    setMove
 };

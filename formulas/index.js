@@ -190,7 +190,4 @@ Exp.Calc.exp2Level = function (exp) {
 
 Exp.Calc.fn = {};
 
-exports.Monster = Monster;
-exports.Stats = Stats;
-exports.Battle = Battle;
-exports.Exp = Exp;
+module.exports = { Monster, Stats, Battle, Exp };

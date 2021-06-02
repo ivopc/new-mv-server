@@ -54,12 +54,12 @@ const isObjectEmpty = obj => Object.keys(obj).length === 0;
 
 const filterMonsterData = monsterData => { 
     const {
-    id, uid, shiny, is_initial, in_pocket, monsterpedia_id, level, 
+    id, uid, shiny, is_initial, in_party, monsterpedia_id, level, 
     experience, gender, hold_item, catch_item, move_0, move_1, move_2, 
     move_3, current_HP, status_problem, stats_HP, current_MP, stats_MP, 
     stats_attack, stats_defense, stats_speed, egg_is, egg_date } = monsterData;
     return {
-    id, uid, shiny, is_initial, in_pocket, monsterpedia_id, level, 
+    id, uid, shiny, is_initial, in_party, monsterpedia_id, level, 
     experience, gender, hold_item, catch_item, move_0, move_1, move_2, 
     move_3, current_HP, status_problem, stats_HP, current_MP, stats_MP, 
     stats_attack, stats_defense, stats_speed, egg_is, egg_date };
@@ -67,7 +67,7 @@ const filterMonsterData = monsterData => {
 
 const filterMonsterList = monsterList => monsterList.map(filterMonsterData);
 
-const sanatizeQuery = str => mysql.escape(str);
+const escapeSQLQuery = str => mysql.escape(str);
 
 module.exports = { 
     promiseWaterfall, 
@@ -80,5 +80,5 @@ module.exports = {
     isObjectEmpty, 
     filterMonsterData, 
     filterMonsterList,
-    sanatizeQuery
+    escapeSQLQuery
 };

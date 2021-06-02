@@ -2,7 +2,7 @@ const QueryExecutor = require("../database/MySQLQueryExecutor");
 
 const { NOTIFICATION_PER_PAGE } = require("../constants/Notification");
 
-const { sanatizeQuery } = require("../utils");
+const { escapeSQLQuery } = require("../utils");
 
 const getNotifications = async (userId, input) => {
     input = input || {};
@@ -11,7 +11,7 @@ const getNotifications = async (userId, input) => {
     const startingLimit = (page - 1) * NOTIFICATION_PER_PAGE;
     return await Promise.all([
         QueryExecutor.query(
-            "SELECT * FROM `notification` WHERE `enabled` = '1' AND `user_id` = ? ORDER BY `id` DESC LIMIT " + sanatizeQuery(startingLimit) + ", " + sanatizeQuery(NOTIFICATION_PER_PAGE),
+            "SELECT * FROM `notification` WHERE `enabled` = '1' AND `user_id` = ? ORDER BY `id` DESC LIMIT " + escapeSQLQuery(startingLimit) + ", " + NOTIFICATION_PER_PAGE,
             [userId]
         ),
         QueryExecutor.query(

@@ -11,10 +11,11 @@ const insertMonster = async (userId, monsterData = {}) => {
     monsterData.user_id = userId;
     monsterData.enabled = booleanToInt(true);
     monsterData.type = monsterData.type || 0;
-    monsterData.shiny = booleanToInt(false);
+    monsterData.color_variant = 0;
     monsterData.is_initial = booleanToInt(monsterData.is_initial) || booleanToInt(false);
     monsterData.trade_enabled = "trade_enabled" in monsterData ? booleanToInt(monsterData.trade_enabled) : booleanToInt(true);
     monsterData.in_party = booleanToInt(monsterData.in_party) || booleanToInt(false);
+    monsterData.monsterpedia_id;
     monsterData.level = monsterData.level || 0;
     monsterData.experience = Resources.Formulas.Exp.Calc.level2Exp(monsterData.level);
     monsterData.gender = monsterData.gender || Resources.Formulas.Monster.Generate.Gender(monsterData.monsterpedia_id);

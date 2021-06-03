@@ -1,28 +1,31 @@
-const { MONSTER_TYPE } = require("../../constants/Monster");
-const { BATTLE_TYPES } = require("../../constants/Battle");
+const { MONSTER_TYPE, RARITY } = require("../../../constants/Monster");
+const { BATTLE_TYPES } = require("../../../constants/Battle");
 
-const { mathRandomBetween } = require("../../utils");
+const { mathRandomBetween } = require("../../../utils");
 
-const { insertBattle } = require("../../models/battle.db");
-const { insertMonster, getAliveWildMonster } = require("../../models/monster.db");
-const { setBattling } = require("../../models/current-doing.db");
-const { getMonstersInParty } = require("../../models/party.db");
+const { insertBattle } = require("../../../models/battle.db");
+const { insertMonster, getAliveWildMonster } = require("../../../models/monster.db");
+const { setBattling } = require("../../../models/current-doing.db");
+const { getMonstersInParty } = require("../../../models/party.db");
+
+const { getPlayerCharacterData } = require("../character/get-set.service");
 
 const Resources = {
-    WildAppearRate: require("../../database/game/wildappearrate.json")
+    WildLocation: require("../../../database/game/wild_location.json")
 };
 
-const createBattle = async userId =>
-    await insertBattle(userId, {
-        battle_type: BATTLE_TYPES.WILD
-    });
+const search = async userId => {
+    const playerCharacterData = await getPlayerCharacterData(userId);
+    const generatedWild = generateRandomWild(playerCharacterData.level);
+    await insertWildMonster(userId, generatedWild);
+    return generatedWild;
+};
 
-const generateRandomWild = (mapId = 0, zoneName = "florest") => {
-    const possibleWilds = Resources.WildAppearRate[mapId][zoneName];
-    const rarity = randomizeRarity();
-    const wildList = possibleWilds[getCurrentDayPeriod()][rarity];
-    const monsterpediaId = wildList[Math.floor(Math.random() * wildList.length)];
-    const level = mathRandomBetween([1, 3]);
+const generateRandomWild = levelId => {
+    const levelLocation = Resources.WildLocation[levelId];
+    const possibleWilds = levelLocation[getCurrentDayPeriod()][randomizeRarity()];
+    const monsterpediaId = possibleWilds[Math.floor(Math.random() * possibleWilds.length)];
+    const level = mathRandomBetween(levelLocation.levelRate);
     return { monsterpediaId, level };
 };
 
@@ -45,6 +48,11 @@ const insertWildMonster = async (userId, monsterData) =>
         type: MONSTER_TYPE.WILD
     });
 
+const createBattle = async userId =>
+    await insertBattle(userId, {
+        battle_type: BATTLE_TYPES.WILD
+    });
+
 const setUserBattlingVsWild = async userId =>
     await setBattling(userId, BATTLE_TYPES.WILD);
 
@@ -54,6 +62,7 @@ const getPlayerPartyMonster = async userId =>
 const getCurrentDayPeriod = () => "morning";
 
 module.exports = {
+    search,
     createBattle,
     generateRandomWild,
     insertWildMonster,

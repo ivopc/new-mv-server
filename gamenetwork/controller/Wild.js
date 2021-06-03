@@ -2,16 +2,22 @@ const AbstractController = require("./AbstractController");
 
 const { EVENTS } = require("../../constants/GameNetwork");
 
+const { search } = require("../../services/gamecore/wild/hunt.service");
+
 class Wild extends AbstractController {
 
-    search (input, response) {}
+    async search (input, response) {
+        const wildData = await search(this.userId);
+        response(null, wildData);
+    }
 
-    handleIfBattle (input, response) {}
+    handleBattleOption (input, response) {}
 
     registerEvents () {
+        console.log("registrou wild");
         this.socket
-            .addEvent(EVENTS.SEARCH_WILD, (input, response) => this.search(input, response))
-            .addEvent(EVENTS.ACCEPT_REJECT_WILD_BATTLE, (input, response) => this.handleIfBattle(input, response));
+            .addEvent(EVENTS.SEARCH_WILD, this.search.bind(this))
+            .addEvent(EVENTS.ACCEPT_REJECT_WILD_BATTLE, this.handleBattleOption.bind(this));
     }
 };
 

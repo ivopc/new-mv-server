@@ -30,7 +30,10 @@ class SocketListener {
         };
     }
 
-    static emit (req, next) {}
+    static emit (req, next) {
+        console.log("emit");
+        next();
+    }
 
     static subscribe (req, next) {}
 

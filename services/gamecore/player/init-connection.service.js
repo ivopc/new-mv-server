@@ -59,7 +59,7 @@ const prepareInitialData = async userId => {
             nickname: rawInitialData.character.nickname,
             flag: rawInitialData.flag.value,
             tamers: rawInitialData.tamersInLevel,
-            notify: rawInitialData.notifications
+            notification: rawInitialData.notifications
         }
     }
 };
@@ -96,6 +96,5 @@ const getInitialPlayerData = async userId => {
 module.exports = { 
     alreadyConnected,
     playerConnect,
-    prepareInitialData,
-    getInitialPlayerData
+    prepareInitialData
 };

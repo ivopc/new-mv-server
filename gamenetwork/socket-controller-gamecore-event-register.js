@@ -23,7 +23,7 @@ const SocketHandlerWrapper = require(`./${fwFolderConfig}/SocketHandlerWrapper`)
 function main(socket) {
     const 
         socketWrapper = new SocketHandlerWrapper(socket),
-        userId = socketWrapper.getAuth()["userid"];
+        userId = socketWrapper.getAuth()["userId"];
     [
         Player, // v
         Character, // v

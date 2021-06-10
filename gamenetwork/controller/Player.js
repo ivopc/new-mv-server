@@ -6,7 +6,7 @@ const SocketServerHandler = require(`../${fwFolderConfig}/SocketServerHandler`);
 
 const { 
     playerConnect, 
-    prepareInitialData 
+    prepareInitialData
 } = require("../../services/gamecore/player/init-connection.service");
 
 const { EVENTS } = require("../../constants/GameNetwork");
@@ -16,15 +16,18 @@ class Player extends AbstractController {
         const { isAlreadyConnected } = await playerConnect(this.userId);
         if (isAlreadyConnected) {
             SocketServerHandler.ref.disconnect(isAlreadyConnected.socketId);
+            return;
         };
         const initialData = await prepareInitialData(this.userId);
         this.socket.send(EVENTS.START_GAMECLIENT, initialData);
+        await SocketServerHandler.ref.setPvPBattleData(999, {test: 123});
+        console.log("battle data", await SocketServerHandler.ref.getPvPBattleData(999));
     }
 
     disconnect () {}
 
-    pong (_, response) {
-        response(null, null);
+    pong (input, response) {
+        response();
     }
 
     getSelfProfile () {}
@@ -49,13 +52,12 @@ class Player extends AbstractController {
     registerEvents () {
         this.connect();
         this.socket
-            .addEvent(EVENTS.PING, this.pong)
-            .addEvent(EVENTS.CHANGE_SKIN, this.setSkin)
-            .addEvent(EVENTS.REQUEST_SELF_PROFILE_DATA, this.getSelfProfile)
-            .addEvent(EVENTS.REQUEST_PROFILE_DATA, this.getRemoteProfile)
-            .addEvent(EVENTS.GET_MONSTERS_ITEMS, this.getMonsters)
-            .addEvent(EVENTS.GET_PLAYER_DATA, this.getPlayerData)
-            .addEvent(EVENTS.DISCONNECT, this.disconnect);
+            .addAjaxEvent(EVENTS.PING, this.pong.bind(this))
+            .addAjaxEvent(EVENTS.REQUEST_SELF_PROFILE_DATA, this.getSelfProfile.bind(this))
+            .addAjaxEvent(EVENTS.REQUEST_PROFILE_DATA, this.getRemoteProfile.bind(this))
+            .addAjaxEvent(EVENTS.GET_MONSTERS_ITEMS, this.getMonsters.bind(this))
+            .addAjaxEvent(EVENTS.GET_PLAYER_DATA, this.getPlayerData.bind(this))
+            .addEvent(EVENTS.DISCONNECT, this.disconnect.bind(this));
     }
 };
 

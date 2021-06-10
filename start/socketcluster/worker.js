@@ -20,7 +20,7 @@ class Worker extends SCWorker {
         };
         healthChecker.attach(this, app);
         httpServer.on("request", app);
-        SocketServerHandler.ref = new SocketServerHandler(scServer);
+        SocketServerHandler.ref = new SocketServerHandler(this);
         scServer.on("connection", SocketListener.conn);
         // Auth websocket connection
         scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE_WS, (req, next) => SocketListener.auth(req, next));

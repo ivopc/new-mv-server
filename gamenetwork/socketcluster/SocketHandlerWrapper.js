@@ -14,6 +14,10 @@ class SocketHandlerWrapper {
         return this;
     }
 
+    addAjaxEvent (event, fn) {
+        return this.addEvent(event, fn);
+    }
+
     getAuth () {
         return url.parse(this.socket.request.url, true).query;
     }

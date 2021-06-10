@@ -2,6 +2,8 @@ const url = require("url");
 
 const { auth } = require("./../auth/conn-boot");
 
+const { CAPTCHA_EVENTS_BLOCK } = require("./../../constants/GameNetwork");
+
 const fwFolderConfig = require("./../../frameworkConfig");
 
 const 
@@ -14,11 +16,16 @@ class SocketListener {
         socketControllerGamecoreEventRegister(socket);
     }
 
+    static appAuth () {}
+
+    static wsAuth () {}
+
     static async auth (req, next) {
-        const { userid, token } = url.parse(req.url, true).query;
+        console.log("auth test");
+        const { userId, token } = url.parse(req.url, true).query;
         let canEnter;
         try {
-            canEnter = await auth(userid, token);
+            canEnter = await auth(userId, token);
         } catch (err) {
             next(true);
             throw new Error(err);
@@ -31,11 +38,19 @@ class SocketListener {
     }
 
     static emit (req, next) {
-        console.log("emit");
+        if (CAPTCHA_EVENTS_BLOCK.includes(req.event)) {
+            console.log("esse evento é bloqueado pelo captcha!", req.event);
+            //next(new Error("Vai tomar no cu ta tendando hackear caralho"));
+            //return;
+        };
         next();
     }
 
-    static subscribe (req, next) {}
+    static subscribe (req, next) {
+        console.log("subscraibou");
+        next();
+
+    }
 
     static publishIn (req, next) {
         //socketP2PControllerGamecoreEventRegister(req, next);

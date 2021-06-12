@@ -9,19 +9,19 @@
  * @function
  * @param {PlayerCharacterData} data
  */
- const insert = data => PlayerCharacter.insert(data);
+ const insertPlayerCharacterCacheData = data => PlayerCharacter.insert(data);
 
  /** Get data from `PlayerCharacter` storage.
   * @function 
   * @returns {Promise<PlayerCharacterData>} 
   */
- const get = () => PlayerCharacter.findOne({});
+ const getPlayerCharacterCacheData = () => PlayerCharacter.findOne({});
  
  /**
   * Generic `PlayerCharacter` storage updater.
   * @function
   * @return {Promise<void>}
   */
- const update = data => PlayerCharacter.update({}, data);
+ const updatePlayerCharacterCacheData = data => PlayerCharacter.update({}, data);
  
- module.exports = { insert, get, update };
+ module.exports = { insertPlayerCharacterCacheData, getPlayerCharacterCacheData, updatePlayerCharacterCacheData };

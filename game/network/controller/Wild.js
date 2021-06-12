@@ -1,8 +1,8 @@
 const AbstractController = require("./AbstractController");
 
-const { EVENTS } = require("../../constants/GameNetwork");
+const { EVENTS } = require("../../../constants/GameNetwork");
 
-const { search } = require("../../services/gamecore/wild/hunt.service");
+const { search } = require("../../../services/gamecore/wild/hunt.service");
 
 class Wild extends AbstractController {
 

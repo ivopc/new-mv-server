@@ -1,10 +1,10 @@
 const AbstractController = require("./AbstractController");
 
-const { EVENTS } = require("../../constants/GameNetwork");
+const { EVENTS } = require("../../../constants/GameNetwork");
 
 class Level extends AbstractController {
 
-    change (input, response) {}
+    async change (input, response) {}
 
     registerEvents () {
         this.socket

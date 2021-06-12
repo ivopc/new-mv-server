@@ -1,15 +1,16 @@
 const AbstractController = require("./AbstractController");
 
-const fwFolderConfig = require("../../frameworkConfig");
+const fwFolderConfig = require("../../../frameworkConfig");
 
-const SocketServerHandler = require(`../${fwFolderConfig}/SocketServerHandler`);
+const SocketServerHandler = require(`../wrappers/${fwFolderConfig}/SocketServerHandler`);
 
 const { 
     playerConnect, 
-    prepareInitialData
-} = require("../../services/gamecore/player/init-connection.service");
+    prepareInitialData,
+    getCharacterData
+} = require("../../../services/gamecore/player/init-connection.service");
 
-const { EVENTS } = require("../../constants/GameNetwork");
+const { EVENTS } = require("../../../constants/GameNetwork");
 
 class Player extends AbstractController {
     async connect () {
@@ -26,7 +27,8 @@ class Player extends AbstractController {
 
     disconnect () {}
 
-    pong (input, response) {
+    async pong (input, response) {
+        console.log("character data", await getCharacterData());
         response();
     }
 

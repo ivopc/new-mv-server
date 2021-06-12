@@ -1,4 +1,4 @@
-const fwFolderConfig = require("./../frameworkConfig");
+const fwFolderConfig = require("./../../frameworkConfig");
 
 const
     Player = require("./controller/Player"),
@@ -18,7 +18,7 @@ const
     Tamer = require("./controller/Tamer"),
     Notication = require("./controller/Notication");
 
-const SocketHandlerWrapper = require(`./${fwFolderConfig}/SocketHandlerWrapper`);
+const SocketHandlerWrapper = require(`./wrappers/${fwFolderConfig}/SocketHandlerWrapper`);
 
 function main(socket) {
     const 

@@ -176,9 +176,10 @@ const parseChallengerAction = (input, activeMonsters, challengerMonsters, buffsD
 
 const chooseOpponentAction = opponentMonster => {
     const moves = [];
-    for (let i = 0; i < MOVES_MAX_LENGTH; i ++)
+    for (let i = 0; i < MOVES_MAX_LENGTH; i ++) {
         if (opponentMonster[`move_${i}`] > 0)
             moves.push(opponentMonster[`move_${i}`]);
+    };
     const moveId = moves[Math.floor(Math.random() * moves.length)];
     return {
         action: ACTIONS.MOVE,

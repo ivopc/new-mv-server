@@ -7,6 +7,7 @@ const { getAllItems } = require("../../../models/items.db");
 const { getNotifications } = require("../../../models/notification.db");
 const { getActiveTamersInLevel } = require("../level/tamer.service");
 const CharacterCrud = require("../../../database/RethinkDBCharacterCrud");
+const { insertPlayerCharacterCacheData, getPlayerCharacterCacheData } = require("../../../models/in-memory/player-character.db");
 
 const { BATTLE_TYPES } = require("../../../constants/Battle");
 const { STATES } = require("../../../constants/GameStates");
@@ -44,6 +45,13 @@ const prepareInitialData = async userId => {
         case BATTLE_TYPES.TAMER: {return;};
         case BATTLE_TYPES.PVP: {return;};
     };
+    await insertPlayerCharacterCacheData({
+        userId,
+        x: rawInitialData.character.pos_x,
+        y: rawInitialData.character.pos_y,
+        facing: rawInitialData.character.pos_facing,
+        character: rawInitialData.character.sprite
+    });
     return {
         state: STATES.OVERWORLD,
         param: {
@@ -82,19 +90,17 @@ const getInitialPlayerData = async userId => {
         getFlagFromLevel(userId, character.level),
         getActiveTamersInLevel(userId, character.level)
     ]);
-    return { 
-        character, 
-        partyMonsters, 
-        items, 
-        currentDoing, 
-        notifications, 
-        flag, 
-        tamersInLevel 
-    };
+    return { character, partyMonsters, items, currentDoing, notifications, flag, tamersInLevel };
+};
+
+const getCharacterData = async () => {
+    const data = await getPlayerCharacterCacheData();
+    return data;
 };
 
 module.exports = { 
     alreadyConnected,
     playerConnect,
-    prepareInitialData
+    prepareInitialData,
+    getCharacterData
 };

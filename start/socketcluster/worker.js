@@ -1,13 +1,12 @@
 const 
     SCWorker = require("socketcluster/scworker"),
-    morgan = require("morgan"),
-    healthChecker = require("sc-framework-health-check");
+    scCodecMinBin = require("sc-codec-min-bin");
 
 const app = require("./../../http-app");
 
 const 
-    SocketServerHandler = require("./../../gamenetwork/socketcluster/SocketServerHandler"),
-    SocketListener = require("./../../gamenetwork/socketcluster/SocketListener");
+    SocketServerHandler = require("./../../game/network/wrappers/socketcluster/SocketServerHandler"),
+    SocketListener = require("./../../game/network/wrappers/socketcluster/SocketListener");
 
 class Worker extends SCWorker {
     run() {
@@ -15,10 +14,6 @@ class Worker extends SCWorker {
         const environment = this.options.environment;
         const httpServer = this.httpServer;
         const scServer = this.scServer;
-        if (environment === "dev") {
-            app.use(morgan("dev"));
-        };
-        healthChecker.attach(this, app);
         httpServer.on("request", app);
         SocketServerHandler.ref = new SocketServerHandler(this);
         scServer.on("connection", SocketListener.conn);
@@ -31,7 +26,8 @@ class Worker extends SCWorker {
         // Control which clients will send publications
         scServer.addMiddleware(scServer.MIDDLEWARE_PUBLISH_OUT, SocketListener.publishOut);
         // Control socket emission
-        scServer.addMiddleware(scServer.MIDDLEWARE_EMIT, SocketListener.emit);
+        if (environment !== "dev")
+            scServer.setCodecEngine(scCodecMinBin);
     }
 };
 

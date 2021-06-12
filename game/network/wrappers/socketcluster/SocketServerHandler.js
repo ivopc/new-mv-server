@@ -1,4 +1,4 @@
-const { CHANNELS } = require("./../../constants/GameNetwork");
+const { CHANNELS } = require("./../../../../constants/GameNetwork");
 
 class SocketServerHandler {
     constructor (server) {

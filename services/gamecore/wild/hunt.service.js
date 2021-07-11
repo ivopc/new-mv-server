@@ -14,14 +14,18 @@ const Resources = {
     WildLocation: require("../../../database/game/wild_location.json")
 };
 
-const search = async userId => {
+async function search (userId) {
     const playerCharacterData = await getPlayerCharacterData(userId);
     const generatedWild = generateRandomWild(playerCharacterData.level);
     await insertWildMonster(userId, generatedWild);
     return generatedWild;
 };
 
-const generateRandomWild = levelId => {
+async function battle (userId) {
+    await createBattle(userId);
+};
+
+function generateRandomWild (levelId) {
     const levelLocation = Resources.WildLocation[levelId];
     const possibleWilds = levelLocation[getCurrentDayPeriod()][randomizeRarity()];
     const monsterpediaId = possibleWilds[Math.floor(Math.random() * possibleWilds.length)];
@@ -29,7 +33,7 @@ const generateRandomWild = levelId => {
     return { monsterpediaId, level };
 };
 
-const randomizeRarity = () => {
+function randomizeRarity () {
     const rate = Math.floor(Math.random() * 25000) + 1;
     if (rate <= 17000) // 68%
         return RARITY.COMMON;
@@ -38,7 +42,7 @@ const randomizeRarity = () => {
     else if (rate <= 24900) // 11.6%
         return RARITY.RARE;
     else
-        return RARITY.RARE2; // 0.4%
+        return RARITY.SUPER_RARE; // 0.4%
 };
 
 const insertWildMonster = async (userId, monsterData) => 
@@ -61,11 +65,4 @@ const getPlayerPartyMonster = async userId =>
 
 const getCurrentDayPeriod = () => "morning";
 
-module.exports = {
-    search,
-    createBattle,
-    generateRandomWild,
-    insertWildMonster,
-    getPlayerPartyMonster,
-    setUserBattlingVsWild
-};
+module.exports = { search, battle };

@@ -18,10 +18,14 @@ const treatParams = {
 
 class TurnScriptExecution {
 
-    constructor (battleId, uid) {
+    constructor (battleId) {
         this.fnList = [];
         this.battleId = battleId;
-        this.uid = uid;
+        this.userId;
+    }
+
+    setUserId (userId) {
+        this.userId = userId;
     }
 
     codeParser (scripts) {

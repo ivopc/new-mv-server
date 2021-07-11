@@ -1,6 +1,6 @@
 const url = require("url");
 
-class SocketHandlerWrapper {
+class NetworkHandlerWrapper {
     constructor (socket) {
         this.socket = socket;
     }
@@ -27,4 +27,4 @@ class SocketHandlerWrapper {
     }
 };
 
-module.exports = SocketHandlerWrapper;
+module.exports = NetworkHandlerWrapper;

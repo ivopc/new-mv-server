@@ -1,8 +1,12 @@
+/**
+ * All channels dynamic enum
+ * @enum
+ */
 const CHANNELS = {
     GLOBAL: () => "g",
     PLAYER: id => id ? `p${id}` : "p",
     LEVEL: id => id ? `l${id}` : "l",
-    PVP_BATTLE: id => id ? `p${id}` : "p"
+    PVP_BATTLE: id => id ? `pb${id}` : "pb"
 };
 
 const EVENTS = {
@@ -60,9 +64,28 @@ const CAPTCHA_EVENTS_BLOCK = [
     EVENTS.REQUEST_MARKETPLACE_MERCHANDISE_NEGOTIATION
 ];
 
+// events that's blocked to exec according to session Queue
+const QUEUE_EVENTS_BLOCK = [
+    EVENTS.CHANGE_BOX_TO_PARTY,
+    EVENTS.CHANGE_BOX_TO_EMPTY_PARTY,
+    EVENTS.CHANGE_PARTY_TO_EMPTY_BOX,
+    EVENTS.CHANGE_PARTY_POSITION
+];
+
 const P2P_EVENTS = {
     LEVEL_MOVE: 0,
     LEVEL_FACE: 1
 };
 
-module.exports = { CHANNELS, EVENTS, P2P_EVENTS, CAPTCHA_EVENTS_BLOCK };
+const MIDDLEWARE_ACEPPT_TO_CONTINUE = undefined;
+const MIDDLEWARE_REJECT_TO_CONTINUE = true;
+
+module.exports = {
+    CHANNELS, 
+    EVENTS, 
+    P2P_EVENTS, 
+    CAPTCHA_EVENTS_BLOCK, 
+    QUEUE_EVENTS_BLOCK, 
+    MIDDLEWARE_ACEPPT_TO_CONTINUE, 
+    MIDDLEWARE_REJECT_TO_CONTINUE 
+};

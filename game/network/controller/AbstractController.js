@@ -6,6 +6,10 @@ class AbstractController {
         this.session;
     }
 
+    setSession (sessionObject) {
+        this.session = sessionObject;
+    } 
+
     registerEvents () {}
 };
 

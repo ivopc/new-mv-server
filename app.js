@@ -1,3 +1,4 @@
-const fwFolderConfig = require("./frameworkConfig");
+// Get which game network framework we will use and boot the app
+const gameNetworkFwFolderConfig = require("./game-network-framework-config");
 
-require(`./start/${fwFolderConfig}/`);
+require(`./app-boot/${gameNetworkFwFolderConfig}/`);

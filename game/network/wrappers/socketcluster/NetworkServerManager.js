@@ -1,6 +1,6 @@
 const { CHANNELS } = require("./../../../../constants/GameNetwork");
 
-class SocketServerHandler {
+class NetworkServerManager {
     constructor (server) {
         this.server = server;
     }
@@ -22,34 +22,26 @@ class SocketServerHandler {
     }
 
     setPvPBattleData (battleId, data) {
-        return new Promise((resolve, reject) => {
-            this.server.exchange.set(CHANNELS.PVP_BATTLE(battleId), data, err => {
-                if (err)
-                    return reject(err);
-                resolve();
-            });
-        });
+        return new Promise((resolve, reject) => 
+            this.server.exchange.set(CHANNELS.PVP_BATTLE(battleId), data, err => err ? reject(err) : resolve())
+        );
     }
 
     getPvPBattleData (battleId) {
-        return new Promise((resolve, reject) => {
-            this.server.exchange.get(CHANNELS.PVP_BATTLE(battleId), (err, data) => {
-                if (err)
-                    return reject(err);
-                resolve(data);
-            });
-        });
+        return new Promise((resolve, reject) => 
+            this.server.exchange.get(CHANNELS.PVP_BATTLE(battleId), (err, data) => err ? reject(err) : resolve(data))
+        );
     }
 
     disconnect (id) {
         this.server.clients[id].disconnect();
     }
 
-    /** Static reference to self class `SocketServerHandler` singleton.
+    /** Static reference to self class `NetworkServerManager` singleton.
      * @static
-     * @returns {SocketServerHandler}
+     * @returns {NetworkServerManager}
      */
     static ref
 };
 
-module.exports = SocketServerHandler;
+module.exports = NetworkServerManager;

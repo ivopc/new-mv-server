@@ -1,8 +1,8 @@
 const AbstractController = require("./AbstractController");
 
-const fwFolderConfig = require("../../../frameworkConfig");
+const fwFolderConfig = require("../../../game-network-framework-config");
 
-const SocketServerHandler = require(`../wrappers/${fwFolderConfig}/SocketServerHandler`);
+const NetworkServerConnectedPlayersManager = require(`../wrappers/${fwFolderConfig}/NetworkServerManager`);
 
 const { 
     playerConnect, 
@@ -16,13 +16,11 @@ class Player extends AbstractController {
     async connect () {
         const { isAlreadyConnected } = await playerConnect(this.userId);
         if (isAlreadyConnected) {
-            SocketServerHandler.ref.disconnect(isAlreadyConnected.socketId);
+            NetworkServerConnectedPlayersManager.disconnect(isAlreadyConnected.socketId);
             return;
         };
-        const initialData = await prepareInitialData(this.userId);
-        this.socket.send(EVENTS.START_GAMECLIENT, initialData);
-        await SocketServerHandler.ref.setPvPBattleData(999, {test: 123});
-        console.log("battle data", await SocketServerHandler.ref.getPvPBattleData(999));
+        const gamebootData = await prepareInitialData(this.userId);
+        this.socket.send(EVENTS.START_GAMECLIENT, gamebootData);
     }
 
     disconnect () {}

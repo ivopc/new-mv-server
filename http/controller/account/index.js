@@ -15,7 +15,7 @@ exports.login = async (req, res) => {
     let user;
     // checking if user exists
     try {
-        // (just a constant to make it readable)
+        // (just a boolean to make it readable)
         const GET_USER_DATA = true;
         [ user ] = await checkIfUserExists(username, GET_USER_DATA);
     } catch (err) {

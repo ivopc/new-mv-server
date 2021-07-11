@@ -11,7 +11,7 @@ const RARITY = {
     COMMON: "common",
     UNCOMMON: "uncommon",
     RARE: "rare",
-    RARE2: "rare2"
+    SUPER_RARE: "rare2"
 };
 
 module.exports = { MONSTER_TYPE, VITA_INCREASE, RARITY };

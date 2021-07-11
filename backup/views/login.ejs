@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Valle</title>
+    <style type="text/css">
+    	form {
+    		margin-top: 50px;
+    	}
+    </style>
+</head>
+<body>
+    <form method="POST" action="/account/login" id="loginform">
+        <input type="text" required="required" name="username" placeholder="Usuário">
+        <input type="password" required="required" name="password" placeholder="Senha">
+        <button type="submit">Conectar</button>
+    </form>
+    <form method="POST" action="/account/register" id="regform">
+        <input type="text" required="required" name="username" placeholder="Usuário">
+        <input type="password" required="required" name="password" placeholder="Senha">
+        <input type="password" required="required" name="repeatpassword" placeholder="Repetir Senha">
+        <input type="e-mail" required="required" name="email" placeholder="E-mail">
+        <button type="submit">Registrar</button>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js" integrity="sha512-DZqqY3PiOvTP9HkjIWgjO6ouCbq+dxqWoJZ/Q+zPYNHmlnI2dQnbJ5bxAHpAMw+LXRm4D72EIRXzvcHQtE8/VQ==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/init.js"></script>
+</body>
+</html>

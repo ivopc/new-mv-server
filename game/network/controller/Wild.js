@@ -15,8 +15,8 @@ class Wild extends AbstractController {
 
     registerEvents () {
         this.socket
-            .addAjaxEvent(EVENTS.SEARCH_WILD, this.search.bind(this))
-            .addAjaxEvent(EVENTS.ACCEPT_REJECT_WILD_BATTLE, this.handleBattleOption.bind(this));
+            .addAjaxEvent(EVENTS.SEARCH_WILD, this.search, this)
+            .addAjaxEvent(EVENTS.ACCEPT_REJECT_WILD_BATTLE, this.handleBattleOption, this);
     }
 };
 

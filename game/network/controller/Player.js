@@ -26,7 +26,6 @@ class Player extends AbstractController {
     disconnect () {}
 
     async pong (input, response) {
-        console.log("character data", await getCharacterData());
         response();
     }
 
@@ -52,12 +51,12 @@ class Player extends AbstractController {
     registerEvents () {
         this.connect();
         this.socket
-            .addAjaxEvent(EVENTS.PING, this.pong.bind(this))
-            .addAjaxEvent(EVENTS.REQUEST_SELF_PROFILE_DATA, this.getSelfProfile.bind(this))
-            .addAjaxEvent(EVENTS.REQUEST_PROFILE_DATA, this.getRemoteProfile.bind(this))
-            .addAjaxEvent(EVENTS.GET_MONSTERS_ITEMS, this.getMonsters.bind(this))
-            .addAjaxEvent(EVENTS.GET_PLAYER_DATA, this.getPlayerData.bind(this))
-            .addEvent(EVENTS.DISCONNECT, this.disconnect.bind(this));
+            .addAjaxEvent(EVENTS.PING, this.pong, this)
+            .addAjaxEvent(EVENTS.REQUEST_SELF_PROFILE_DATA, this.getSelfProfile, this)
+            .addAjaxEvent(EVENTS.REQUEST_PROFILE_DATA, this.getRemoteProfile, this)
+            .addAjaxEvent(EVENTS.GET_MONSTERS_ITEMS, this.getMonsters, this)
+            .addAjaxEvent(EVENTS.GET_PLAYER_DATA, this.getPlayerData, this)
+            .addEvent(EVENTS.DISCONNECT, this.disconnect, this);
     }
 };
 

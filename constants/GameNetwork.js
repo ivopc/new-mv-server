@@ -6,7 +6,7 @@ const CHANNELS = {
     GLOBAL: () => "g",
     PLAYER: id => id ? `p${id}` : "p",
     LEVEL: id => id ? `l${id}` : "l",
-    PVP_BATTLE: id => id ? `pb${id}` : "pb"
+    PVP_BATTLE: id => id ? `v${id}` : "v"
 };
 
 const EVENTS = {
@@ -48,6 +48,7 @@ const EVENTS = {
     GET_MARKETPLACE_MERCHANDISES: 90,
     GET_MARKETPLACE_SPECIFIC_MERCHANDISE: 91,
     REQUEST_MARKETPLACE_MERCHANDISE_NEGOTIATION: 90,
+    RECEIVE_NEW_LAYOUT_DATA: 301,
     DISCONNECT: "disconnect"
 };
 

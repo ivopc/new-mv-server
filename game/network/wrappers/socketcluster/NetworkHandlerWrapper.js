@@ -14,8 +14,8 @@ class NetworkHandlerWrapper {
         return this;
     }
 
-    addAjaxEvent (event, fn) {
-        return this.addEvent(event, fn);
+    addAjaxEvent (event, fn, context) {
+        return this.addEvent(event, context ? fn.bind(context) : fn);
     }
 
     getAuth () {

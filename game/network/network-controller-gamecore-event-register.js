@@ -20,7 +20,8 @@ module.exports = function (network) {
         "MarketPlace",
         "Quest",
         "Tamer", 
-        "Notication"
+        "Notication",
+        "Engine"
     ].forEach(module => {
         const NetworkController = require(`./controller/${module}`);
         const controller = new NetworkController(

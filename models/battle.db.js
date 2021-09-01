@@ -10,10 +10,10 @@ const { getBattleBuffsDebuffs } = require("./battle-buffs-debuffs.db");
 
 const PartySchema = require("../schemas/Party");
 
-const insertBattle = async (uid, battleData) => {
+const insertBattle = async (userId, battleData) => {
     // id da batalha é nulo (AUTO_INCREMENT)
     battleData.id = null;
-    battleData.uid = uid;
+    battleData.user_id = userId;
     // batalha habilitada
     battleData.enabled = booleanToInt(true);
     // tipo de batalha: 1 = wild | 2 = domador | 3 = pvp | 4 = monstro indomável
@@ -33,25 +33,25 @@ const insertBattle = async (uid, battleData) => {
     return await QueryExecutor.query("INSERT INTO `battle` SET ?", battleData);
 };
 
-const getBattle = async uid => {
+const getBattle = async userId => {
     const [ battle ] = await QueryExecutor.query(
-        "SELECT * FROM `battle` WHERE `uid` = ?",
-        [uid]
+        "SELECT * FROM `battle` WHERE `user_id` = ?",
+        [userId]
     );
     return battle;
 };
 
-const deleteBattle = async uid => {
-    return await QueryExecutor.query("DELETE FROM `battle` WHERE `uid` = ?", [uid]);
+const deleteBattle = async userId => {
+    return await QueryExecutor.query("DELETE FROM `battle` WHERE `user_id` = ?", [userId]);
 };
 
-const getAllBattleInfo = async (battleType, uid) => {
+const getAllBattleInfo = async (battleType, userId) => {
     switch (battleType) {
         case BATTLE_TYPES.WILD: {
             const [ _playerMonsters, wildMonster, battleData ] = await Promise.all([
-                getMonstersInParty(uid),
-                getAliveWildMonster(uid),
-                getBattle(uid)
+                getMonstersInParty(userId),
+                getAliveWildMonster(userId),
+                getBattle(userId)
             ]);
             const playerMonsters = new PartySchema(_playerMonsters);
             const buffsDebuffs = await getBattleBuffsDebuffs(battleData.id);

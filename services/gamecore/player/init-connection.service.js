@@ -39,12 +39,7 @@ const playerConnect = async (userId, socketId) => {
 };
 
 const prepareInitialData = async userId => {
-    const rawInitialData = await getInitialPlayerData(userId);
-    switch (rawInitialData.battle_type) {
-        case BATTLE_TYPES.WILD: {return;};
-        case BATTLE_TYPES.TAMER: {return;};
-        case BATTLE_TYPES.PVP: {return;};
-    };
+    const rawInitialData = await getInitialBaseData(userId);
     await insertPlayerCharacterCacheData({
         userId,
         x: rawInitialData.character.pos_x,
@@ -52,27 +47,12 @@ const prepareInitialData = async userId => {
         facing: rawInitialData.character.pos_facing,
         character: rawInitialData.character.sprite
     });
-    return {
-        state: STATES.OVERWORLD,
-        param: {
-            monsters: rawInitialData.partyMonsters,
-            position: {
-                x: rawInitialData.character.pos_x,
-                y: rawInitialData.character.pos_y,
-                facing: rawInitialData.character.pos_facing,
-            },
-            items: rawInitialData.items,
-            sprite: rawInitialData.character.sprite,
-            level: rawInitialData.character.level,
-            nickname: rawInitialData.character.nickname,
-            flag: rawInitialData.flag.value,
-            tamers: rawInitialData.tamersInLevel,
-            notification: rawInitialData.notifications
-        }
-    }
+    //const { initialData, state } = await getStateParticularData(rawInitialData, userId);
+    const state = STATES.OVERWORLD;
+    return generateInitialData(rawInitialData, state);
 };
 
-const getInitialPlayerData = async userId => {
+const getInitialBaseData = async userId => {
     const [
         character,
         partyMonsters,
@@ -93,10 +73,45 @@ const getInitialPlayerData = async userId => {
     return { character, partyMonsters, items, currentDoing, notifications, flag, tamersInLevel };
 };
 
+const getStateParticularData = async (rawInitialData, userId) => {
+    let particularData;
+    switch (rawInitialData.battle_type) {
+        case BATTLE_TYPES.WILD: {
+            particularData = await getWildBattleInitial(userId);
+            return;
+        };
+        case BATTLE_TYPES.TAMER: {
+            return;
+        };
+        case BATTLE_TYPES.PVP: {
+            return;
+        };
+    };
+};
+
 const getCharacterData = async () => {
     const data = await getPlayerCharacterCacheData();
     return data;
 };
+
+const generateInitialData = (raw, state) => ({
+    state,
+    param: {
+        monsters: raw.partyMonsters,
+        position: {
+            x: raw.character.pos_x,
+            y: raw.character.pos_y,
+            facing: raw.character.pos_facing,
+        },
+        items: raw.items,
+        sprite: raw.character.sprite,
+        level: raw.character.level,
+        nickname: raw.character.nickname,
+        flag: raw.flag.value,
+        tamers: raw.tamersInLevel,
+        notification: raw.notifications
+    }
+});
 
 module.exports = { 
     alreadyConnected,

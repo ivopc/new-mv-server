@@ -3,7 +3,7 @@ const { BATTLE_TYPES } = require("../../../constants/Battle");
 
 const { mathRandomBetween } = require("../../../utils");
 
-const { insertBattle } = require("../../../models/battle.db");
+const { insertBattle, getBattle } = require("../../../models/battle.db");
 const { insertMonster, getAliveWildMonster } = require("../../../models/monster.db");
 const { setBattling } = require("../../../models/current-doing.db");
 const { getMonstersInParty } = require("../../../models/party.db");
@@ -21,8 +21,15 @@ async function search (userId) {
     return generatedWild;
 };
 
-async function battle (userId) {
-    await createBattle(userId);
+async function startBattle (userId) {
+    const [ battleRef, currentDoing, wildMonster ] = await Promise.all([
+        createBattle(userId),
+        setUserBattlingVsWild(userId),
+        getAliveWildMonster(userId)
+    ]);
+    const battle = await getBattle(userId);
+    console.log("dados da batalha", battle);
+    return { wildMonster, battle };
 };
 
 function generateRandomWild (levelId) {
@@ -60,9 +67,6 @@ const createBattle = async userId =>
 const setUserBattlingVsWild = async userId =>
     await setBattling(userId, BATTLE_TYPES.WILD);
 
-const getPlayerPartyMonster = async userId =>
-    await getMonstersInParty(userId);
-
 const getCurrentDayPeriod = () => "morning";
 
-module.exports = { search, battle };
+module.exports = { search, startBattle };

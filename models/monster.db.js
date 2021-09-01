@@ -1,5 +1,6 @@
 const QueryExecutor = require("../database/MySQLQueryExecutor");
 const { booleanToInt, escapeSQLQuery } = require("../utils");
+const { MONSTER_TYPE } = require("../constants/Monster");
 
 const Resources = {
     Dex: require("../database/game/dex.json"),
@@ -99,8 +100,8 @@ const disableMonster = async id => {
 
 const getAliveWildMonster = async userId => {
     const [ wild ] = await QueryExecutor.query(
-        "SELECT * FROM `monsters` WHERE `type` = '1' AND `user_id` = ? AND `enabled` = '1'",
-        [userId]
+        "SELECT * FROM `monsters` WHERE `type` = '" + MONSTER_TYPE.WILD + "' AND `user_id` = ? AND `enabled` = '1'",
+        [ userId ]
     );
     return wild;
 };

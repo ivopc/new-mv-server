@@ -33,7 +33,7 @@ class NetworkServerManager {
         );
     }
 
-    disconnect (id) {
+    disconnectPlayer (id) {
         this.server.clients[id].disconnect();
     }
 

@@ -2,7 +2,7 @@ const AbstractController = require("./AbstractController");
 
 const fwFolderConfig = require("../../../game-network-framework-config");
 
-const NetworkServerConnectedPlayersManager = require(`../wrappers/${fwFolderConfig}/NetworkServerManager`);
+const NetworkServerManager = require(`../wrappers/${fwFolderConfig}/NetworkServerManager`);
 
 const { 
     playerConnect, 
@@ -16,7 +16,7 @@ class Player extends AbstractController {
     async connect () {
         const { isAlreadyConnected } = await playerConnect(this.userId);
         if (isAlreadyConnected) {
-            NetworkServerConnectedPlayersManager.disconnect(isAlreadyConnected.socketId);
+            NetworkServerManager.disconnectPlayer(isAlreadyConnected.socketId);
             return;
         };
         const gamebootData = await prepareInitialData(this.userId);
@@ -25,7 +25,7 @@ class Player extends AbstractController {
 
     disconnect () {}
 
-    async pong (input, response) {
+    pong (input, response) {
         response();
     }
 

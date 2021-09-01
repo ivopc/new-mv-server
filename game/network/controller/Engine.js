@@ -4,10 +4,10 @@ const { EVENTS } = require("../../../constants/GameNetwork");
 
 const { EventEmitter } = require("events");
 
-const em = new EventEmitter();
-em.setMaxListeners(0);
+const eventEmitter = new EventEmitter();
+eventEmitter.setMaxListeners(0);
 
-const layoutBuilder = require("../../../../mv-engine/layout-builder")(em);
+const layoutBuilder = require("../../../../mv-engine/layout-builder")(eventEmitter);
 
 class Engine extends AbstractController {
 
@@ -17,7 +17,8 @@ class Engine extends AbstractController {
     }
 
     async updateLayoutData (input, response) {
-
+        eventEmitter.emit("FIX_LAYOUT_COMPONENT", input);
+        
     }
 
     registerEvents () {
@@ -26,7 +27,7 @@ class Engine extends AbstractController {
     }
 
     watchFile () {
-        em.on("UPDATE_LAYOUT", layout => this.socket.send(300, layout));
+        eventEmitter.on("UPDATE_LAYOUT", layout => this.socket.send(EVENTS.UPDATE_LAYOUT, layout));
     }
 };
 

@@ -30,8 +30,13 @@ const itemDrop = async () => {
 };
 
 module.exports = {
-    checkAndInsertQuestDefeat, expReward, giveExpRaw, addExpShareToMonster,
-    removeExpShareToMonster, coinReward, itemDrop
+    checkAndInsertQuestDefeat, 
+    expReward, 
+    giveExpRaw, 
+    addExpShareToMonster,
+    removeExpShareToMonster, 
+    coinReward, 
+    itemDrop
 };
 
 

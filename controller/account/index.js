@@ -45,6 +45,7 @@ exports.login = async (req, res) => {
 
 exports.register = async (req, res) => {
     const { username, password, email } = req.body;
+    console.log({ old: "sim", username, password, email });
     const register = new Register(req, res);
     // validate inputs
     if (!register.isInputValid(username || "", password || "", email || "")) {
@@ -66,6 +67,7 @@ exports.register = async (req, res) => {
         res.status(401).json({error: REGISTER.ERROR.EMAIL_ALREADY_IN_USE});
         return;
     };
+    console.log({ old: "sim", username, password, email, userExists, emailInUse });
     const newUser = await createNewUser(username, password, email, 0);
     register.createSession({
         id: newUser.insertId,

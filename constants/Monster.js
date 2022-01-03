@@ -7,11 +7,11 @@ const MONSTER_TYPE = {
 
 const VITA_INCREASE = 10;
 
-const RARITY = {
+const MONSTER_RARITY = {
     COMMON: "common",
     UNCOMMON: "uncommon",
     RARE: "rare",
     SUPER_RARE: "rare2"
 };
 
-module.exports = { MONSTER_TYPE, VITA_INCREASE, RARITY };
+module.exports = { MONSTER_TYPE, MONSTER_RARITY, VITA_INCREASE };

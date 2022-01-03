@@ -2,16 +2,23 @@ const { cryptPassword } = require("../../utils");
 const { 
     createUser, 
     emailInUse, 
-    insertCurrentDoing
+    insertCurrentDoing,
+    isInputValid
 } = require("../../models/users.db");
 const { insertGameData } = require("../../models/gamedata.db");
 const { insertMonsterParty } = require("../../models/party.db");
 
-const checkIfEmailInUse = async email => {
+
+function isRegisterInputValid (input) {
+    if (!isInputValid(input))
+        throw new Error("Invalid Input!");
+};
+
+async function checkIfEmailInUse (email) {
     return await emailInUse(email);
 };
 
-const createNewUser = async (username, password, email, lang) => {
+async function createNewUser (username, password, email, lang) {
     const cryptedPassword = await cryptPassword(password);
     const [ newUser ] = await createUser(username, cryptedPassword, email, lang);
     const [ currentDoing, inGameData, monsterParty ] = await Promise.all([
@@ -22,4 +29,4 @@ const createNewUser = async (username, password, email, lang) => {
     return newUser;
 };
 
-module.exports = { checkIfEmailInUse, createNewUser };
+module.exports = { checkIfEmailInUse, createNewUser, isRegisterInputValid };

@@ -1,0 +1,29 @@
+2021-11-16T09:19:53.876845414 0.864147s notice: Recursively removing directory /home/ivopc/new-mv-server/rethinkdb_data/tmp
+2021-11-16T09:19:53.995984537 0.983292s notice: Initializing directory /home/ivopc/new-mv-server/rethinkdb_data
+2021-11-16T09:19:53.996672955 0.983974s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/home/ivopc/new-mv-server/rethinkdb_data' did not already exist or is empty.)
+2021-11-16T09:19:53.996779026 0.984079s notice: Running rethinkdb 2.4.1~0focal (CLANG 10.0.0 )...
+2021-11-16T09:19:54.018121828 1.005424s notice: Running on Linux 5.11.0-40-generic x86_64
+2021-11-16T09:19:54.018278687 1.005579s notice: Loading data from directory /home/ivopc/new-mv-server/rethinkdb_data
+2021-11-16T09:19:54.594479831 1.581781s info: Automatically using cache size of 1078 MB
+2021-11-16T09:19:54.624373496 1.611674s notice: Listening for intracluster connections on port 29015
+2021-11-16T09:19:54.654690296 1.641991s notice: Listening for client driver connections on port 28015
+2021-11-16T09:19:54.814881412 1.802182s error: Could not bind to http port: The address at localhost:8080 is reserved or already in use.
+2022-01-01T21:58:50.629508687 0.304978s notice: Running rethinkdb 2.4.1~0focal (CLANG 10.0.0 )...
+2022-01-01T21:58:50.635390978 0.310854s notice: Running on Linux 5.11.0-43-generic x86_64
+2022-01-01T21:58:50.635607376 0.311069s notice: Loading data from directory /home/ivopc/new-mv-server/rethinkdb_data
+2022-01-01T21:58:50.905388775 0.580850s info: Automatically using cache size of 997 MB
+2022-01-01T21:58:50.956231826 0.631693s notice: Listening for intracluster connections on port 29015
+2022-01-01T21:58:51.010808040 0.686269s notice: Listening for client driver connections on port 28015
+2022-01-01T21:58:51.173895159 0.849357s error: Could not bind to http port: The address at localhost:8080 is reserved or already in use.
+2022-01-01T21:59:09.075801514 0.137027s notice: Running rethinkdb 2.4.1~0focal (CLANG 10.0.0 )...
+2022-01-01T21:59:09.081171123 0.142391s notice: Running on Linux 5.11.0-43-generic x86_64
+2022-01-01T21:59:09.081358324 0.142576s notice: Loading data from directory /home/ivopc/new-mv-server/rethinkdb_data
+2022-01-01T21:59:09.277961633 0.339180s info: Automatically using cache size of 1360 MB
+2022-01-01T21:59:09.280317586 0.341535s notice: Listening for intracluster connections on port 29015
+2022-01-01T21:59:09.282929354 0.344147s notice: Listening for client driver connections on port 28015
+2022-01-01T21:59:09.283128542 0.344346s notice: Listening for administrative HTTP connections on port 8080
+2022-01-01T21:59:09.283139180 0.344356s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2022-01-01T21:59:09.283146287 0.344363s notice: Listening on driver addresses: 127.0.0.1, ::1
+2022-01-01T21:59:09.283170445 0.344388s notice: Listening on http addresses: 127.0.0.1, ::1
+2022-01-01T21:59:09.283190907 0.344408s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2022-01-01T21:59:09.283210488 0.344428s notice: Server ready, "ivopc_rko" 13534a32-c632-41cc-9695-26b1d9fbaa5d

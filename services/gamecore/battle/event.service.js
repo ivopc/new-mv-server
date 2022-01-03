@@ -4,7 +4,7 @@ const { deleteBattle } = require("../../../models/battle.db");
 
 const { checkAndInsertQuestDefeat, expReward, itemDrop } = require("./reward.service");
 
-const onWildFainted = async (faintedMonsterData, userId) => {
+async function onWildFainted (faintedMonsterData, userId) {
     const [
         setCurrentDoing,
         disableWild,
@@ -23,9 +23,10 @@ const onWildFainted = async (faintedMonsterData, userId) => {
     return { continue: false, expBattleReward, itemBattleDrop };
 };
 
-const onPlayerFainted = async () => {};
+async function onPlayerFainted () {};
 
-const onPlayerLose = async () => {};
-const onDraw = async () => {};
+async function onPlayerLose () {};
+
+async function onDraw () {};
 
 module.exports = { onWildFainted, onPlayerFainted, onPlayerLose, onDraw };

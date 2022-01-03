@@ -1,8 +1,7 @@
-const Login = require("./classes/Login");
-const Register = require("./classes/Register");
-const { checkIfUserExists, checkPassword } = require("../../services/account/account-login.service");
-const { checkIfEmailInUse, createNewUser } = require("../../services/account/account-register.service");
-const { LOGIN, REGISTER } = require("../../constants/Account");
+const { checkIfUserExists, checkPassword } = require("../../../services/account/account-login.service");
+const { checkIfEmailInUse, createNewUser, isRegisterInputValid } = require("../../../services/account/account-register.service");
+const { randomString } = require("../../../utils");
+const { LOGIN, REGISTER, GAME_AUTH_TOKEN_LENGTH, USER_CSRF_TOKEN_LENGTH } = require("../../../constants/Account");
 
 exports.login = async (req, res) => {
     const { username, password } = req.body;
@@ -45,35 +44,42 @@ exports.login = async (req, res) => {
 
 exports.register = async (req, res) => {
     const { username, password, email } = req.body;
-    const register = new Register(req, res);
+    //const register = new Register(req, res);
     // validate inputs
-    if (!register.isInputValid(username || "", password || "", email || "")) {
-        res.status(401).json({error: REGISTER.ERROR.INVALID_INPUT});
+    try {
+        isRegisterInputValid(req.body);
+    } catch (err) {
+        res.status(401).json({ error: REGISTER.ERROR.INVALID_INPUT });
         return;
     };
-    // check if user exists and email is in use 
-    // (just a boolean to make it interpretable)
-    const GET_USER_DATA = false;
-    const [ userExists, emailInUse ] = await Promise.all([
-        checkIfUserExists(username, GET_USER_DATA),
-        checkIfEmailInUse(email)
-    ]);
-    if (userExists) {
-        res.status(401).json({error: REGISTER.ERROR.USER_ALREADY_EXISTS});
-        return;
-    };
-    if (emailInUse) {
-        res.status(401).json({error: REGISTER.ERROR.EMAIL_ALREADY_IN_USE});
-        return;
+
+    try {
+        // check if user exists and email is in use 
+        // (just a boolean to make it readable)
+        const GET_USER_DATA = false;
+        const [ userExists, emailInUse ] = await Promise.all([
+            checkIfUserExists(username, GET_USER_DATA),
+            checkIfEmailInUse(email)
+        ]);
+        if (userExists) {
+            res.status(401).json({ error: REGISTER.ERROR.USER_ALREADY_EXISTS });
+            return;
+        };
+        if (emailInUse) {
+            res.status(401).json({ error: REGISTER.ERROR.EMAIL_ALREADY_IN_USE });
+            return;
+        };
+    } catch (err) {
+        res.status(401).json({ error: 999 });
     };
     const newUser = await createNewUser(username, password, email, 0);
-    register.createSession({
+    createSession({
         id: newUser.insertId,
         username,
         rank: 0,
         lang: 0
-    });
-    res.json({success: true});
+    }, req);
+    res.json({ success: true });
 };
 
 exports.logout = async (req, res) => {
@@ -88,3 +94,19 @@ exports.logout = async (req, res) => {
 };
 
 exports.settings = async (req, res) => {};
+
+function createSession (userData, req) {
+    //generate session tokens 
+    const token = {
+        auth: randomString(GAME_AUTH_TOKEN_LENGTH),
+        csrf: randomString(USER_CSRF_TOKEN_LENGTH)
+    };
+    // make session
+    req.session.isConnected = true;
+    req.session.uid = userData.id;
+    req.session.username = userData.username;
+    req.session.authToken = token.auth;
+    req.session.csrfToken = token.csrf;
+    req.session.rank = userData.rank;
+    req.session.lang = userData.lang;
+}

@@ -1,5 +1,6 @@
 const QueryExecutor = require("../database/MySQLQueryExecutor");
-const { booleanToInt } = require("../utils");
+const { booleanToInt, validateEmail } = require("../utils");
+const { USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH, PASSWORD_MIN_LENGTH } = require("../constants/Account");
 
 const createUser = async (username, cryptedPassword, email, lang) => {
 	return await QueryExecutor.query("INSERT INTO `users` SET ?", {
@@ -51,11 +52,19 @@ const insertCurrentDoing = async userId => {
     });
 };
 
+function isInputValid ({ username, password, email }) {
+	const isValidUsername = username.length >= USERNAME_MIN_LENGTH && username.length <= USERNAME_MAX_LENGTH;
+	const isValidPassword = password.length >= PASSWORD_MIN_LENGTH;
+	const isValidEmail = validateEmail(email);
+	return isValidUsername && isValidPassword && isValidEmail;
+};
+
 module.exports = {
 	createUser,
 	getUserById,
 	userExists,
 	emailInUse,
 	setUserBannedById, 
-	insertCurrentDoing
+	insertCurrentDoing,
+	isInputValid
 };

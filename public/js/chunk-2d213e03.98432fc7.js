@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d213e03"],{af19:function(n,e,t){"use strict";t.r(e);var a=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div")},c=[],u={name:"Captcha",data:function(){return{}}},r=u,i=t("2877"),o=Object(i["a"])(r,a,c,!1,null,"4dab2352",null);e["default"]=o.exports}}]);
-//# sourceMappingURL=chunk-2d213e03.98432fc7.js.map

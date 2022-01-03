@@ -15,7 +15,7 @@ class Worker extends SCWorker {
         console.log("   >> Worker PID:", process.pid);
         const { httpServer, scServer } = this;
         this.setupManagers();
-        this.setupCoded();
+        this.setupCodec();
         this.setupMiddlewares();
         httpServer.on("request", httpService);
         scServer.on("connection", NetworkListener.conn);
@@ -34,11 +34,10 @@ class Worker extends SCWorker {
         scServer.addMiddleware(scServer.MIDDLEWARE_HANDSHAKE_WS, (req, next) => NetworkListener.auth(req, next));
         scServer.addMiddleware(scServer.MIDDLEWARE_SUBSCRIBE, NetworkListener.subscribe);
         scServer.addMiddleware(scServer.MIDDLEWARE_PUBLISH_IN, NetworkListener.publishIn);
-        // Control which clients will send publications
         scServer.addMiddleware(scServer.MIDDLEWARE_PUBLISH_OUT, NetworkListener.publishOut);
     }
 
-    setupCoded () {
+    setupCodec () {
         if (this.options.environment !== "dev")
         this.scServer.setCodecEngine(scCodecMinBin);
     }

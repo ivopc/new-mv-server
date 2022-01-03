@@ -1,7 +1,9 @@
-const { MONSTER_TYPE, RARITY } = require("../../../constants/Monster");
+const { MONSTER_TYPE, MONSTER_RARITY } = require("../../../constants/Monster");
 const { BATTLE_TYPES } = require("../../../constants/Battle");
+const { WILD_MONSTER_POSSIBILITIES } = require("../../../constants/SortRate");
 
 const { mathRandomBetween } = require("../../../utils");
+const randomSort = require("../../../utils/random-sort");
 
 const { insertBattle, getBattle } = require("../../../models/battle.db");
 const { insertMonster, getAliveWildMonster } = require("../../../models/monster.db");
@@ -34,22 +36,10 @@ async function startBattle (userId) {
 
 function generateRandomWild (levelId) {
     const levelLocation = Resources.WildLocation[levelId];
-    const possibleWilds = levelLocation[getCurrentDayPeriod()][randomizeRarity()];
+    const possibleWilds = levelLocation[getCurrentDayPeriod()][randomSort(WILD_MONSTER_POSSIBILITIES)];
     const monsterpediaId = possibleWilds[Math.floor(Math.random() * possibleWilds.length)];
     const level = mathRandomBetween(levelLocation.levelRate);
     return { monsterpediaId, level };
-};
-
-function randomizeRarity () {
-    const rate = Math.floor(Math.random() * 25000) + 1;
-    if (rate <= 17000) // 68%
-        return RARITY.COMMON;
-    else if (rate <= 22000) // 20%
-        return RARITY.UNCOMMON;
-    else if (rate <= 24900) // 11.6%
-        return RARITY.RARE;
-    else
-        return RARITY.SUPER_RARE; // 0.4%
 };
 
 const insertWildMonster = async (userId, monsterData) => 

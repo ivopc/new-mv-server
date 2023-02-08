@@ -4,6 +4,13 @@ const Connection = require("./RethinkDBConnection");
 const { TABLES } = require("../constants/RethinkDB");
 
 class CharacterCRUD {
+
+
+    static async seed () {
+        const conn = await Connection.getConn();
+        await r.tableCreate(TABLES.CHARACTER).run(conn);
+    }
+
     static async create (characterData) {
         const conn = await Connection.getConn();
         await r.table(TABLES.CHARACTER)

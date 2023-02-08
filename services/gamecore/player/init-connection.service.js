@@ -48,6 +48,7 @@ const prepareInitialData = async userId => {
         character: rawInitialData.character.sprite
     });
     //const { initialData, state } = await getStateParticularData(rawInitialData, userId);
+    console.log(rawInitialData);
     const state = STATES.OVERWORLD;
     return generateInitialData(rawInitialData, state);
 };
@@ -107,7 +108,7 @@ const generateInitialData = (raw, state) => ({
         sprite: raw.character.sprite,
         level: raw.character.level,
         nickname: raw.character.nickname,
-        flag: raw.flag.value,
+        flag: raw.flag?.value,
         tamers: raw.tamersInLevel,
         notification: raw.notifications
     }

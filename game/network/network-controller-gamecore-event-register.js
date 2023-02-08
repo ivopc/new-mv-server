@@ -21,7 +21,7 @@ module.exports = function (network) {
         "Quest",
         "Tamer", 
         "Notication",
-        "Engine"
+        //"Engine"
     ].forEach(module => {
         const NetworkController = require(`./controller/${module}`);
         const controller = new NetworkController(

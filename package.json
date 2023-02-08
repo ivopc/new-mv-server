@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app"
+    "dev": "nodemon app",
+    "seed": "node database-seed"
   },
   "author": "ivopc <ivoopc@gmail.com>",
   "license": "MIT",
@@ -152,6 +153,7 @@
     "ms": "2.0.0",
     "mute-stream": "0.0.7",
     "mysql": "^2.18.1",
+    "mysql2": "^3.1.0",
     "nan": "2.14.2",
     "nanomatch": "1.2.13",
     "ncom": "1.0.3",
@@ -228,8 +230,8 @@
     "split-string": "3.1.0",
     "static-extend": "0.1.2",
     "statuses": "1.4.0",
-    "string-width": "2.1.1",
     "string_decoder": "1.1.1",
+    "string-width": "2.1.1",
     "strip-ansi": "4.0.0",
     "supports-color": "5.5.0",
     "symbol-observable": "1.0.1",

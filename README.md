@@ -7,6 +7,8 @@ If you want to rewrite the older source to that and contribute, you're free :)
 
 No guides released yet. 
 
+# Secretly I'm doing a closed-source release of my game with TypeScript+Phaser3+NuxtJS+NestJS :)
+
 ## Build Setup
 
 ``` bash

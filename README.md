@@ -1,3 +1,8 @@
+<p align="center" width="100%">
+    <img src="https://i.imgur.com/bh8ZbWe.png">
+</p>
+
+
 # New Monster Valle Server
 Server-side of my MMORPG based on Pokémon, is not complete but you can see the older version here that is completed - https://github.com/ivopc/old-mv-server
 
